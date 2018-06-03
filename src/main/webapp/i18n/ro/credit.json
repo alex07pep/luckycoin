@@ -1,0 +1,24 @@
+
+{
+    "luckycoinApp": {
+        "credit" : {
+            "home": {
+                "title": "Credits",
+                "createLabel": "Creeare o nouă entitate Credit",
+                "createOrEditLabel": "Creeare sau editare Credit",
+                "search": "Căutare după Credit"
+            },
+            "created": "A fost creată o nouă entitate Credit cu identificatorul {{ param }}",
+            "updated": "Credit cu identificatorul {{ param }} a fost actualizată",
+            "deleted": "Credit cu identificatorul {{ param }} a fost ștearsă",
+            "delete": {
+                "question": "Sunteți sigur că doriți să ștergeți Credit {{ id }}?"
+            },
+            "detail": {
+                "title": "Credit"
+            },
+            "creditValue": "Credit Value",
+            "user": "User"
+        }
+    }
+}

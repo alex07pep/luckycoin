@@ -1,0 +1,115 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "login"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "category",
+            "fieldType": "AnnouncementCategory",
+            "fieldValues": "PHONES,AUTO,ELECTRONICS,OTHERS",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "description",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "photo1",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "photo2",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "photo3",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "photo4",
+            "fieldType": "byte[]",
+            "fieldTypeBlobContent": "image"
+        },
+        {
+            "fieldName": "addedDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "finishDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "phoneNumber",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "location",
+            "fieldType": "Location",
+            "fieldValues": "BUCURESTI,ALBA,ARAD,ARGES,BACAU,BIHOR,BISTRITA_NASAUD,BOTOSANI,BRASOV,BRAILA,BUZAU,CARAS_SEVERIN,CALARASI,CLUJ,CONSTANTA,COVASNA,DAMBOVITA,DOLJ,GALATI,GIURGIU,GORJ,HARGHITA,HUNEDOARA,IALOMITA,IASI,ILFOV,MARAMURES,MEHEDINTI,MURES,NEAMT,OLT,PRAHOVA,SATU_MARE,SALAJ,SIBIU,SUCEAVA,TELEORMAN,TIMIS,TULCEA,VALCEA,VASLUI,VRANCEA",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "price",
+            "fieldType": "Long",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "minimPrice",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "ticketValue",
+            "fieldType": "Integer"
+        },
+        {
+            "fieldName": "status",
+            "fieldType": "Status",
+            "fieldValues": "OPEN,CLOSED,FINISED,COMPLETED"
+        },
+        {
+            "fieldName": "ticketsNumber",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "ticketsSold",
+            "fieldType": "Long"
+        },
+        {
+            "fieldName": "winner",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20180603221821",
+    "javadoc": "Announcement entity.\n@author PEP.",
+    "entityTableName": "announcement",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "angularJSSuffix": "mySuffix"
+}

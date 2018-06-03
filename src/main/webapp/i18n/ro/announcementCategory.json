@@ -1,0 +1,11 @@
+{
+    "luckycoinApp": {
+        "AnnouncementCategory" : {
+            "null": "",
+            "PHONES": "PHONES",
+            "AUTO": "AUTO",
+            "ELECTRONICS": "ELECTRONICS",
+            "OTHERS": "OTHERS"
+        }
+    }
+}

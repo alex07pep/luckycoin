@@ -1,0 +1,264 @@
+<form name="editForm" role="form" novalidate (ngSubmit)="save()" #editForm="ngForm">
+
+    <div class="modal-header">
+        <h4 class="modal-title" id="myAnnouncementLabel" jhiTranslate="luckycoinApp.announcement.home.createOrEditLabel">Create or edit a Announcement</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body">
+        <jhi-alert-error></jhi-alert-error>
+        <div class="form-group" [hidden]="!announcement.id">
+            <label for="id" jhiTranslate="global.field.id">ID</label>
+            <input type="text" class="form-control" id="id" name="id"
+                   [(ngModel)]="announcement.id" readonly />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.name" for="field_name">Name</label>
+            <input type="text" class="form-control" name="name" id="field_name"
+                [(ngModel)]="announcement.name" required/>
+            <div [hidden]="!(editForm.controls.name?.dirty && editForm.controls.name?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.name?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.category" for="field_category">Category</label>
+            <select class="form-control" name="category" [(ngModel)]="announcement.category" id="field_category"  required>
+                <option value="PHONES">{{'luckycoinApp.AnnouncementCategory.PHONES' | translate}}</option>
+                <option value="AUTO">{{'luckycoinApp.AnnouncementCategory.AUTO' | translate}}</option>
+                <option value="ELECTRONICS">{{'luckycoinApp.AnnouncementCategory.ELECTRONICS' | translate}}</option>
+                <option value="OTHERS">{{'luckycoinApp.AnnouncementCategory.OTHERS' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.category?.dirty && editForm.controls.category?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.category?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.description" for="field_description">Description</label>
+            <input type="text" class="form-control" name="description" id="field_description"
+                [(ngModel)]="announcement.description" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.photo1" for="field_photo1">Photo 1</label>
+            <div>
+                <img [src]="'data:' + announcement.photo1ContentType + ';base64,' + announcement.photo1" style="max-height: 100px;" *ngIf="announcement.photo1" alt="announcement image"/>
+                <div *ngIf="announcement.photo1" class="form-text text-danger clearfix">
+                    <span class="pull-left">{{announcement.photo1ContentType}}, {{byteSize(announcement.photo1)}}</span>
+                    <button type="button" (click)="clearInputImage('photo1', 'photo1ContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                        <span class="fa fa-times"></span>
+                    </button>
+                </div>
+                <input type="file" id="file_photo1" (change)="setFileData($event, announcement, 'photo1', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+            </div>
+            <input type="hidden" class="form-control" name="photo1" id="field_photo1"
+                [(ngModel)]="announcement.photo1" />
+            <input type="hidden" class="form-control" name="photo1ContentType" id="field_photo1ContentType"
+                [(ngModel)]="announcement.photo1ContentType" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.photo2" for="field_photo2">Photo 2</label>
+            <div>
+                <img [src]="'data:' + announcement.photo2ContentType + ';base64,' + announcement.photo2" style="max-height: 100px;" *ngIf="announcement.photo2" alt="announcement image"/>
+                <div *ngIf="announcement.photo2" class="form-text text-danger clearfix">
+                    <span class="pull-left">{{announcement.photo2ContentType}}, {{byteSize(announcement.photo2)}}</span>
+                    <button type="button" (click)="clearInputImage('photo2', 'photo2ContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                        <span class="fa fa-times"></span>
+                    </button>
+                </div>
+                <input type="file" id="file_photo2" (change)="setFileData($event, announcement, 'photo2', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+            </div>
+            <input type="hidden" class="form-control" name="photo2" id="field_photo2"
+                [(ngModel)]="announcement.photo2" />
+            <input type="hidden" class="form-control" name="photo2ContentType" id="field_photo2ContentType"
+                [(ngModel)]="announcement.photo2ContentType" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.photo3" for="field_photo3">Photo 3</label>
+            <div>
+                <img [src]="'data:' + announcement.photo3ContentType + ';base64,' + announcement.photo3" style="max-height: 100px;" *ngIf="announcement.photo3" alt="announcement image"/>
+                <div *ngIf="announcement.photo3" class="form-text text-danger clearfix">
+                    <span class="pull-left">{{announcement.photo3ContentType}}, {{byteSize(announcement.photo3)}}</span>
+                    <button type="button" (click)="clearInputImage('photo3', 'photo3ContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                        <span class="fa fa-times"></span>
+                    </button>
+                </div>
+                <input type="file" id="file_photo3" (change)="setFileData($event, announcement, 'photo3', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+            </div>
+            <input type="hidden" class="form-control" name="photo3" id="field_photo3"
+                [(ngModel)]="announcement.photo3" />
+            <input type="hidden" class="form-control" name="photo3ContentType" id="field_photo3ContentType"
+                [(ngModel)]="announcement.photo3ContentType" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.photo4" for="field_photo4">Photo 4</label>
+            <div>
+                <img [src]="'data:' + announcement.photo4ContentType + ';base64,' + announcement.photo4" style="max-height: 100px;" *ngIf="announcement.photo4" alt="announcement image"/>
+                <div *ngIf="announcement.photo4" class="form-text text-danger clearfix">
+                    <span class="pull-left">{{announcement.photo4ContentType}}, {{byteSize(announcement.photo4)}}</span>
+                    <button type="button" (click)="clearInputImage('photo4', 'photo4ContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                        <span class="fa fa-times"></span>
+                    </button>
+                </div>
+                <input type="file" id="file_photo4" (change)="setFileData($event, announcement, 'photo4', true)" accept="image/*" jhiTranslate="entity.action.addimage"/>
+            </div>
+            <input type="hidden" class="form-control" name="photo4" id="field_photo4"
+                [(ngModel)]="announcement.photo4" />
+            <input type="hidden" class="form-control" name="photo4ContentType" id="field_photo4ContentType"
+                [(ngModel)]="announcement.photo4ContentType" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.addedDate" for="field_addedDate">Added Date</label>
+            <div class="input-group">
+                <input id="field_addedDate" type="text" class="form-control" name="addedDate" ngbDatepicker  #addedDateDp="ngbDatepicker" [(ngModel)]="announcement.addedDate"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="addedDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.finishDate" for="field_finishDate">Finish Date</label>
+            <div class="input-group">
+                <input id="field_finishDate" type="text" class="form-control" name="finishDate" ngbDatepicker  #finishDateDp="ngbDatepicker" [(ngModel)]="announcement.finishDate"
+                />
+                <span class="input-group-append">
+                    <button type="button" class="btn btn-secondary" (click)="finishDateDp.toggle()"><i class="fa fa-calendar"></i></button>
+                </span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.phoneNumber" for="field_phoneNumber">Phone Number</label>
+            <input type="text" class="form-control" name="phoneNumber" id="field_phoneNumber"
+                [(ngModel)]="announcement.phoneNumber" required/>
+            <div [hidden]="!(editForm.controls.phoneNumber?.dirty && editForm.controls.phoneNumber?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.phoneNumber?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.location" for="field_location">Location</label>
+            <select class="form-control" name="location" [(ngModel)]="announcement.location" id="field_location"  required>
+                <option value="BUCURESTI">{{'luckycoinApp.Location.BUCURESTI' | translate}}</option>
+                <option value="ALBA">{{'luckycoinApp.Location.ALBA' | translate}}</option>
+                <option value="ARAD">{{'luckycoinApp.Location.ARAD' | translate}}</option>
+                <option value="ARGES">{{'luckycoinApp.Location.ARGES' | translate}}</option>
+                <option value="BACAU">{{'luckycoinApp.Location.BACAU' | translate}}</option>
+                <option value="BIHOR">{{'luckycoinApp.Location.BIHOR' | translate}}</option>
+                <option value="BISTRITA_NASAUD">{{'luckycoinApp.Location.BISTRITA_NASAUD' | translate}}</option>
+                <option value="BOTOSANI">{{'luckycoinApp.Location.BOTOSANI' | translate}}</option>
+                <option value="BRASOV">{{'luckycoinApp.Location.BRASOV' | translate}}</option>
+                <option value="BRAILA">{{'luckycoinApp.Location.BRAILA' | translate}}</option>
+                <option value="BUZAU">{{'luckycoinApp.Location.BUZAU' | translate}}</option>
+                <option value="CARAS_SEVERIN">{{'luckycoinApp.Location.CARAS_SEVERIN' | translate}}</option>
+                <option value="CALARASI">{{'luckycoinApp.Location.CALARASI' | translate}}</option>
+                <option value="CLUJ">{{'luckycoinApp.Location.CLUJ' | translate}}</option>
+                <option value="CONSTANTA">{{'luckycoinApp.Location.CONSTANTA' | translate}}</option>
+                <option value="COVASNA">{{'luckycoinApp.Location.COVASNA' | translate}}</option>
+                <option value="DAMBOVITA">{{'luckycoinApp.Location.DAMBOVITA' | translate}}</option>
+                <option value="DOLJ">{{'luckycoinApp.Location.DOLJ' | translate}}</option>
+                <option value="GALATI">{{'luckycoinApp.Location.GALATI' | translate}}</option>
+                <option value="GIURGIU">{{'luckycoinApp.Location.GIURGIU' | translate}}</option>
+                <option value="GORJ">{{'luckycoinApp.Location.GORJ' | translate}}</option>
+                <option value="HARGHITA">{{'luckycoinApp.Location.HARGHITA' | translate}}</option>
+                <option value="HUNEDOARA">{{'luckycoinApp.Location.HUNEDOARA' | translate}}</option>
+                <option value="IALOMITA">{{'luckycoinApp.Location.IALOMITA' | translate}}</option>
+                <option value="IASI">{{'luckycoinApp.Location.IASI' | translate}}</option>
+                <option value="ILFOV">{{'luckycoinApp.Location.ILFOV' | translate}}</option>
+                <option value="MARAMURES">{{'luckycoinApp.Location.MARAMURES' | translate}}</option>
+                <option value="MEHEDINTI">{{'luckycoinApp.Location.MEHEDINTI' | translate}}</option>
+                <option value="MURES">{{'luckycoinApp.Location.MURES' | translate}}</option>
+                <option value="NEAMT">{{'luckycoinApp.Location.NEAMT' | translate}}</option>
+                <option value="OLT">{{'luckycoinApp.Location.OLT' | translate}}</option>
+                <option value="PRAHOVA">{{'luckycoinApp.Location.PRAHOVA' | translate}}</option>
+                <option value="SATU_MARE">{{'luckycoinApp.Location.SATU_MARE' | translate}}</option>
+                <option value="SALAJ">{{'luckycoinApp.Location.SALAJ' | translate}}</option>
+                <option value="SIBIU">{{'luckycoinApp.Location.SIBIU' | translate}}</option>
+                <option value="SUCEAVA">{{'luckycoinApp.Location.SUCEAVA' | translate}}</option>
+                <option value="TELEORMAN">{{'luckycoinApp.Location.TELEORMAN' | translate}}</option>
+                <option value="TIMIS">{{'luckycoinApp.Location.TIMIS' | translate}}</option>
+                <option value="TULCEA">{{'luckycoinApp.Location.TULCEA' | translate}}</option>
+                <option value="VALCEA">{{'luckycoinApp.Location.VALCEA' | translate}}</option>
+                <option value="VASLUI">{{'luckycoinApp.Location.VASLUI' | translate}}</option>
+                <option value="VRANCEA">{{'luckycoinApp.Location.VRANCEA' | translate}}</option>
+            </select>
+            <div [hidden]="!(editForm.controls.location?.dirty && editForm.controls.location?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.location?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.price" for="field_price">Price</label>
+            <input type="number" class="form-control" name="price" id="field_price"
+                [(ngModel)]="announcement.price" required/>
+            <div [hidden]="!(editForm.controls.price?.dirty && editForm.controls.price?.invalid)">
+                <small class="form-text text-danger"
+                   [hidden]="!editForm.controls.price?.errors?.required" jhiTranslate="entity.validation.required">
+                   This field is required.
+                </small>
+                <small class="form-text text-danger"
+                    [hidden]="!editForm.controls.price?.errors?.number" jhiTranslate="entity.validation.number">
+                    This field should be a number.
+                </small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.minimPrice" for="field_minimPrice">Minim Price</label>
+            <input type="number" class="form-control" name="minimPrice" id="field_minimPrice"
+                [(ngModel)]="announcement.minimPrice" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.ticketValue" for="field_ticketValue">Ticket Value</label>
+            <input type="number" class="form-control" name="ticketValue" id="field_ticketValue"
+                [(ngModel)]="announcement.ticketValue" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.status" for="field_status">Status</label>
+            <select class="form-control" name="status" [(ngModel)]="announcement.status" id="field_status" >
+                <option value="OPEN">{{'luckycoinApp.Status.OPEN' | translate}}</option>
+                <option value="CLOSED">{{'luckycoinApp.Status.CLOSED' | translate}}</option>
+                <option value="FINISED">{{'luckycoinApp.Status.FINISED' | translate}}</option>
+                <option value="COMPLETED">{{'luckycoinApp.Status.COMPLETED' | translate}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.ticketsNumber" for="field_ticketsNumber">Tickets Number</label>
+            <input type="number" class="form-control" name="ticketsNumber" id="field_ticketsNumber"
+                [(ngModel)]="announcement.ticketsNumber" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.ticketsSold" for="field_ticketsSold">Tickets Sold</label>
+            <input type="number" class="form-control" name="ticketsSold" id="field_ticketsSold"
+                [(ngModel)]="announcement.ticketsSold" />
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.winner" for="field_winner">Winner</label>
+            <input type="text" class="form-control" name="winner" id="field_winner"
+                [(ngModel)]="announcement.winner" />
+        </div>
+
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.user" for="field_user">User</label>
+            <select class="form-control" id="field_user" name="user" [(ngModel)]="announcement.user" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="userOption.id === announcement.user?.id ? announcement.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <span class="fa fa-ban"></span>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button type="submit" [disabled]="editForm.form.invalid || isSaving" class="btn btn-primary">
+            <span class="fa fa-save"></span>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+    </div>
+</form>

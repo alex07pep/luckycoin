@@ -1,0 +1,11 @@
+{
+    "luckycoinApp": {
+        "Status" : {
+            "null": "",
+            "OPEN": "OPEN",
+            "CLOSED": "CLOSED",
+            "FINISED": "FINISED",
+            "COMPLETED": "COMPLETED"
+        }
+    }
+}

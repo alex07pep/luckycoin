@@ -10,6 +10,9 @@
                 "bankAccount": "ContBancar",
                 "label": "Etichetă",
                 "operation": "Operație",
+                "transactionMySuffix": "Transaction",
+                "creditMySuffix": "Credit",
+                "announcementMySuffix": "Announcement",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

@@ -1,0 +1,25 @@
+
+{
+    "luckycoinApp": {
+        "transaction" : {
+            "home": {
+                "title": "Transactions",
+                "createLabel": "Creeare o nouă entitate Transaction",
+                "createOrEditLabel": "Creeare sau editare Transaction",
+                "search": "Căutare după Transaction"
+            },
+            "created": "A fost creată o nouă entitate Transaction cu identificatorul {{ param }}",
+            "updated": "Transaction cu identificatorul {{ param }} a fost actualizată",
+            "deleted": "Transaction cu identificatorul {{ param }} a fost ștearsă",
+            "delete": {
+                "question": "Sunteți sigur că doriți să ștergeți Transaction {{ id }}?"
+            },
+            "detail": {
+                "title": "Transaction"
+            },
+            "completed": "Completed",
+            "user": "User",
+            "announcement": "Announcement"
+        }
+    }
+}

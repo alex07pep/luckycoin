@@ -1,0 +1,41 @@
+
+{
+    "luckycoinApp": {
+        "announcement" : {
+            "home": {
+                "title": "Announcements",
+                "createLabel": "Create a new Announcement",
+                "createOrEditLabel": "Create or edit a Announcement",
+                "search": "Search for Announcement"
+            },
+            "created": "A new Announcement is created with identifier {{ param }}",
+            "updated": "A Announcement is updated with identifier {{ param }}",
+            "deleted": "A Announcement is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Announcement {{ id }}?"
+            },
+            "detail": {
+                "title": "Announcement"
+            },
+            "name": "Name",
+            "category": "Category",
+            "description": "Description",
+            "photo1": "Photo 1",
+            "photo2": "Photo 2",
+            "photo3": "Photo 3",
+            "photo4": "Photo 4",
+            "addedDate": "Added Date",
+            "finishDate": "Finish Date",
+            "phoneNumber": "Phone Number",
+            "location": "Location",
+            "price": "Price",
+            "minimPrice": "Minim Price",
+            "ticketValue": "Ticket Value",
+            "status": "Status",
+            "ticketsNumber": "Tickets Number",
+            "ticketsSold": "Tickets Sold",
+            "winner": "Winner",
+            "user": "User"
+        }
+    }
+}

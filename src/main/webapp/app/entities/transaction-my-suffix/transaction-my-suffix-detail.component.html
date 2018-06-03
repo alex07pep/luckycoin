@@ -1,0 +1,36 @@
+
+<div *ngIf="transaction">
+    <h2><span jhiTranslate="luckycoinApp.transaction.detail.title">Transaction</span> {{transaction.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="luckycoinApp.transaction.completed">Completed</span></dt>
+        <dd>
+            <span>{{transaction.completed}}</span>
+        </dd>
+        <dt><span jhiTranslate="luckycoinApp.transaction.user">User</span></dt>
+        <dd>
+            {{transaction.user?.login}}
+        </dd>
+        <dt><span jhiTranslate="luckycoinApp.transaction.announcement">Announcement</span></dt>
+        <dd>
+            <div *ngIf="transaction.announcement">
+                <a [routerLink]="['/announcement-my-suffix', transaction.announcement?.id]">{{transaction.announcement?.id}}</a>
+            </div>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'transaction-my-suffix/'+ transaction.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -1,0 +1,82 @@
+// Luckucoin JDL file
+
+/**
+ * Transaction entity.
+ * @author PEP.
+ */
+entity Transaction {
+	completed Boolean
+}
+
+entity Credit {
+	creditValue Long
+}
+
+enum AnnouncementCategory {
+    PHONES, AUTO, ELECTRONICS, OTHERS
+}
+
+enum Status {
+	OPEN, CLOSED, FINISED, COMPLETED
+}
+
+enum Location {
+ 	BUCURESTI, ALBA, ARAD, ARGES, BACAU, BIHOR, 
+    BISTRITA_NASAUD, BOTOSANI, BRASOV, BRAILA, 
+    BUZAU, CARAS_SEVERIN, CALARASI, CLUJ, CONSTANTA, 
+    COVASNA, DAMBOVITA, DOLJ, GALATI, GIURGIU, GORJ, 
+    HARGHITA, HUNEDOARA, IALOMITA, IASI, ILFOV, MARAMURES, 
+    MEHEDINTI, MURES, NEAMT, OLT, PRAHOVA, SATU_MARE, SALAJ, 
+    SIBIU, SUCEAVA, TELEORMAN, TIMIS, TULCEA, VALCEA, VASLUI, VRANCEA
+}
+
+/**
+ * Announcement entity.
+ * @author PEP.
+ */
+entity Announcement {
+    name String required,
+    category AnnouncementCategory required,
+    description String,
+    photo1 ImageBlob,
+    photo2 ImageBlob,
+    photo3 ImageBlob,
+    photo4 ImageBlob,
+    addedDate LocalDate,
+    finishDate LocalDate,
+    phoneNumber String required,
+    location Location required,
+    price Long required,
+    minimPrice Long,
+    ticketValue Integer,
+    status Status,
+    ticketsNumber Long,
+    ticketsSold Long,
+    winner String,
+}
+
+
+relationship OneToOne {
+    Credit{user(login)} to User
+}
+
+relationship ManyToOne {
+	Announcement{user(login)} to User
+}
+
+relationship ManyToOne {
+	Transaction{user(login)} to User
+}
+
+relationship ManyToOne {
+	Transaction{announcement} to Announcement
+}
+
+// Set pagination options
+paginate Announcement with pagination
+
+
+// Set service options to all
+service all with serviceImpl
+// Set an angular suffix
+angularSuffix * with mySuffix

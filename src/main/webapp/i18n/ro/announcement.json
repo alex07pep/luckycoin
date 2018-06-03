@@ -1,0 +1,41 @@
+
+{
+    "luckycoinApp": {
+        "announcement" : {
+            "home": {
+                "title": "Announcements",
+                "createLabel": "Creeare o nouă entitate Announcement",
+                "createOrEditLabel": "Creeare sau editare Announcement",
+                "search": "Căutare după Announcement"
+            },
+            "created": "A fost creată o nouă entitate Announcement cu identificatorul {{ param }}",
+            "updated": "Announcement cu identificatorul {{ param }} a fost actualizată",
+            "deleted": "Announcement cu identificatorul {{ param }} a fost ștearsă",
+            "delete": {
+                "question": "Sunteți sigur că doriți să ștergeți Announcement {{ id }}?"
+            },
+            "detail": {
+                "title": "Announcement"
+            },
+            "name": "Name",
+            "category": "Category",
+            "description": "Description",
+            "photo1": "Photo 1",
+            "photo2": "Photo 2",
+            "photo3": "Photo 3",
+            "photo4": "Photo 4",
+            "addedDate": "Added Date",
+            "finishDate": "Finish Date",
+            "phoneNumber": "Phone Number",
+            "location": "Location",
+            "price": "Price",
+            "minimPrice": "Minim Price",
+            "ticketValue": "Ticket Value",
+            "status": "Status",
+            "ticketsNumber": "Tickets Number",
+            "ticketsSold": "Tickets Sold",
+            "winner": "Winner",
+            "user": "User"
+        }
+    }
+}

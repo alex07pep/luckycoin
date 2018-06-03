@@ -1,0 +1,118 @@
+
+<div *ngIf="announcement">
+    <h2><span jhiTranslate="luckycoinApp.announcement.detail.title">Announcement</span> {{announcement.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="luckycoinApp.announcement.name">Name</span></dt>
+        <dd>
+            <span>{{announcement.name}}</span>
+        </dd>
+        <dt><span jhiTranslate="luckycoinApp.announcement.category">Category</span></dt>
+        <dd>
+            <span jhiTranslate="{{'luckycoinApp.AnnouncementCategory.' + announcement.category}}">{{announcement.category}}</span>
+        </dd>
+        <dt><span jhiTranslate="luckycoinApp.announcement.description">Description</span></dt>
+        <dd>
+            <span>{{announcement.description}}</span>
+        </dd>
+        <dt><span jhiTranslate="luckycoinApp.announcement.photo1">Photo 1</span></dt>
+        <dd>
+            <div *ngIf="announcement.photo1">
+                <a (click)="openFile(announcement.photo1ContentType, announcement.photo1)">
+                    <img [src]="'data:' + announcement.photo1ContentType + ';base64,' + announcement.photo1" style="max-width: 100%;" alt="announcement image"/>
+                </a>
+                {{announcement.photo1ContentType}}, {{byteSize(announcement.photo1)}}
+            </div>
+        </dd>
+        <dt><span jhiTranslate="luckycoinApp.announcement.photo2">Photo 2</span></dt>
+        <dd>
+            <div *ngIf="announcement.photo2">
+                <a (click)="openFile(announcement.photo2ContentType, announcement.photo2)">
+                    <img [src]="'data:' + announcement.photo2ContentType + ';base64,' + announcement.photo2" style="max-width: 100%;" alt="announcement image"/>
+                </a>
+                {{announcement.photo2ContentType}}, {{byteSize(announcement.photo2)}}
+            </div>
+        </dd>
+        <dt><span jhiTranslate="luckycoinApp.announcement.photo3">Photo 3</span></dt>
+        <dd>
+            <div *ngIf="announcement.photo3">
+                <a (click)="openFile(announcement.photo3ContentType, announcement.photo3)">
+                    <img [src]="'data:' + announcement.photo3ContentType + ';base64,' + announcement.photo3" style="max-width: 100%;" alt="announcement image"/>
+                </a>
+                {{announcement.photo3ContentType}}, {{byteSize(announcement.photo3)}}
+            </div>
+        </dd>
+        <dt><span jhiTranslate="luckycoinApp.announcement.photo4">Photo 4</span></dt>
+        <dd>
+            <div *ngIf="announcement.photo4">
+                <a (click)="openFile(announcement.photo4ContentType, announcement.photo4)">
+                    <img [src]="'data:' + announcement.photo4ContentType + ';base64,' + announcement.photo4" style="max-width: 100%;" alt="announcement image"/>
+                </a>
+                {{announcement.photo4ContentType}}, {{byteSize(announcement.photo4)}}
+            </div>
+        </dd>
+        <dt><span jhiTranslate="luckycoinApp.announcement.addedDate">Added Date</span></dt>
+        <dd>
+            <span>{{announcement.addedDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="luckycoinApp.announcement.finishDate">Finish Date</span></dt>
+        <dd>
+            <span>{{announcement.finishDate | date:'mediumDate'}}</span>
+        </dd>
+        <dt><span jhiTranslate="luckycoinApp.announcement.phoneNumber">Phone Number</span></dt>
+        <dd>
+            <span>{{announcement.phoneNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="luckycoinApp.announcement.location">Location</span></dt>
+        <dd>
+            <span jhiTranslate="{{'luckycoinApp.Location.' + announcement.location}}">{{announcement.location}}</span>
+        </dd>
+        <dt><span jhiTranslate="luckycoinApp.announcement.price">Price</span></dt>
+        <dd>
+            <span>{{announcement.price}}</span>
+        </dd>
+        <dt><span jhiTranslate="luckycoinApp.announcement.minimPrice">Minim Price</span></dt>
+        <dd>
+            <span>{{announcement.minimPrice}}</span>
+        </dd>
+        <dt><span jhiTranslate="luckycoinApp.announcement.ticketValue">Ticket Value</span></dt>
+        <dd>
+            <span>{{announcement.ticketValue}}</span>
+        </dd>
+        <dt><span jhiTranslate="luckycoinApp.announcement.status">Status</span></dt>
+        <dd>
+            <span jhiTranslate="{{'luckycoinApp.Status.' + announcement.status}}">{{announcement.status}}</span>
+        </dd>
+        <dt><span jhiTranslate="luckycoinApp.announcement.ticketsNumber">Tickets Number</span></dt>
+        <dd>
+            <span>{{announcement.ticketsNumber}}</span>
+        </dd>
+        <dt><span jhiTranslate="luckycoinApp.announcement.ticketsSold">Tickets Sold</span></dt>
+        <dd>
+            <span>{{announcement.ticketsSold}}</span>
+        </dd>
+        <dt><span jhiTranslate="luckycoinApp.announcement.winner">Winner</span></dt>
+        <dd>
+            <span>{{announcement.winner}}</span>
+        </dd>
+        <dt><span jhiTranslate="luckycoinApp.announcement.user">User</span></dt>
+        <dd>
+            {{announcement.user?.login}}
+        </dd>
+    </dl>
+
+    <button type="submit"
+            (click)="previousState()"
+            class="btn btn-info">
+        <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button"
+            [routerLink]="['/', { outlets: { popup: 'announcement-my-suffix/'+ announcement.id + '/edit'} }]"
+            replaceUrl="true"
+            queryParamsHandling="merge"
+            class="btn btn-primary">
+        <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+    </button>
+</div>

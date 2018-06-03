@@ -1,0 +1,26 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "relationshipName": "user",
+            "otherEntityName": "user",
+            "otherEntityField": "login",
+            "ownerSide": true,
+            "otherEntityRelationshipName": "credit"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "creditValue",
+            "fieldType": "Long"
+        }
+    ],
+    "changelogDate": "20180603221820",
+    "entityTableName": "credit",
+    "dto": "no",
+    "pagination": "no",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "angularJSSuffix": "mySuffix"
+}
