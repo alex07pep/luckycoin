@@ -8,9 +8,15 @@
     -->
     <changeSet id="20180603221821-2" author="jhipster">
         
-        <addForeignKeyConstraint baseColumnNames="user_id"
+        <addForeignKeyConstraint baseColumnNames="owner_id"
                                  baseTableName="announcement"
-                                 constraintName="fk_announcement_user_id"
+                                 constraintName="fk_announcement_owner_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="jhi_user"/>
+
+        <addForeignKeyConstraint baseColumnNames="winner_id"
+                                 baseTableName="announcement"
+                                 constraintName="fk_announcement_winner_id"
                                  referencedColumnNames="id"
                                  referencedTableName="jhi_user"/>
 

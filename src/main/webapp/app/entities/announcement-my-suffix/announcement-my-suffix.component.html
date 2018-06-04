@@ -47,8 +47,8 @@
             <th jhiSortBy="status"><span jhiTranslate="luckycoinApp.announcement.status">Status</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="ticketsNumber"><span jhiTranslate="luckycoinApp.announcement.ticketsNumber">Tickets Number</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="ticketsSold"><span jhiTranslate="luckycoinApp.announcement.ticketsSold">Tickets Sold</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="winner"><span jhiTranslate="luckycoinApp.announcement.winner">Winner</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="user.login"><span jhiTranslate="luckycoinApp.announcement.user">User</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="owner.login"><span jhiTranslate="luckycoinApp.announcement.owner">Owner</span> <span class="fa fa-sort"></span></th>
+            <th jhiSortBy="winner.login"><span jhiTranslate="luckycoinApp.announcement.winner">Winner</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
@@ -92,9 +92,11 @@
                 <td jhiTranslate="{{'luckycoinApp.Status.' + announcement.status}}">{{announcement.status}}</td>
                 <td>{{announcement.ticketsNumber}}</td>
                 <td>{{announcement.ticketsSold}}</td>
-                <td>{{announcement.winner}}</td>
                 <td>
-                    {{announcement.user?.login}}
+                    {{announcement.owner?.login}}
+                </td>
+                <td>
+                    {{announcement.winner?.login}}
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

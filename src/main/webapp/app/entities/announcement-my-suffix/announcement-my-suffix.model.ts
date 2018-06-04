@@ -83,8 +83,9 @@ export class AnnouncementMySuffix implements BaseEntity {
         public status?: Status,
         public ticketsNumber?: number,
         public ticketsSold?: number,
-        public winner?: string,
-        public user?: User,
+        public owner?: User,
+        public winner?: User,
+        public transactions?: BaseEntity[],
     ) {
     }
 }

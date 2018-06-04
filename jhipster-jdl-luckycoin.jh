@@ -51,8 +51,7 @@ entity Announcement {
     ticketValue Integer,
     status Status,
     ticketsNumber Long,
-    ticketsSold Long,
-    winner String,
+    ticketsSold Long
 }
 
 
@@ -61,7 +60,8 @@ relationship OneToOne {
 }
 
 relationship ManyToOne {
-	Announcement{user(login)} to User
+	Announcement{owner(login)} to User
+    Announcement{winner(login)} to User
 }
 
 relationship ManyToOne {
@@ -69,7 +69,7 @@ relationship ManyToOne {
 }
 
 relationship ManyToOne {
-	Transaction{announcement} to Announcement
+	Transaction{announcement} to Announcement{transactions}
 }
 
 // Set pagination options

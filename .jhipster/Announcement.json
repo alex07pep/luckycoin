@@ -3,9 +3,21 @@
     "relationships": [
         {
             "relationshipType": "many-to-one",
-            "relationshipName": "user",
+            "relationshipName": "owner",
             "otherEntityName": "user",
             "otherEntityField": "login"
+        },
+        {
+            "relationshipType": "many-to-one",
+            "relationshipName": "winner",
+            "otherEntityName": "user",
+            "otherEntityField": "login"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "transactions",
+            "otherEntityName": "transaction",
+            "otherEntityRelationshipName": "announcement"
         }
     ],
     "fields": [
@@ -98,10 +110,6 @@
         {
             "fieldName": "ticketsSold",
             "fieldType": "Long"
-        },
-        {
-            "fieldName": "winner",
-            "fieldType": "String"
         }
     ],
     "changelogDate": "20180603221821",

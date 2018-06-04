@@ -105,9 +105,6 @@ public class AnnouncementResourceIntTest {
     private static final Long DEFAULT_TICKETS_SOLD = 1L;
     private static final Long UPDATED_TICKETS_SOLD = 2L;
 
-    private static final String DEFAULT_WINNER = "AAAAAAAAAA";
-    private static final String UPDATED_WINNER = "BBBBBBBBBB";
-
     @Autowired
     private AnnouncementRepository announcementRepository;
 
@@ -172,8 +169,7 @@ public class AnnouncementResourceIntTest {
             .ticketValue(DEFAULT_TICKET_VALUE)
             .status(DEFAULT_STATUS)
             .ticketsNumber(DEFAULT_TICKETS_NUMBER)
-            .ticketsSold(DEFAULT_TICKETS_SOLD)
-            .winner(DEFAULT_WINNER);
+            .ticketsSold(DEFAULT_TICKETS_SOLD);
         return announcement;
     }
 
@@ -219,7 +215,6 @@ public class AnnouncementResourceIntTest {
         assertThat(testAnnouncement.getStatus()).isEqualTo(DEFAULT_STATUS);
         assertThat(testAnnouncement.getTicketsNumber()).isEqualTo(DEFAULT_TICKETS_NUMBER);
         assertThat(testAnnouncement.getTicketsSold()).isEqualTo(DEFAULT_TICKETS_SOLD);
-        assertThat(testAnnouncement.getWinner()).isEqualTo(DEFAULT_WINNER);
 
         // Validate the Announcement in Elasticsearch
         Announcement announcementEs = announcementSearchRepository.findOne(testAnnouncement.getId());
@@ -366,8 +361,7 @@ public class AnnouncementResourceIntTest {
             .andExpect(jsonPath("$.[*].ticketValue").value(hasItem(DEFAULT_TICKET_VALUE)))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].ticketsNumber").value(hasItem(DEFAULT_TICKETS_NUMBER.intValue())))
-            .andExpect(jsonPath("$.[*].ticketsSold").value(hasItem(DEFAULT_TICKETS_SOLD.intValue())))
-            .andExpect(jsonPath("$.[*].winner").value(hasItem(DEFAULT_WINNER.toString())));
+            .andExpect(jsonPath("$.[*].ticketsSold").value(hasItem(DEFAULT_TICKETS_SOLD.intValue())));
     }
 
     @Test
@@ -401,8 +395,7 @@ public class AnnouncementResourceIntTest {
             .andExpect(jsonPath("$.ticketValue").value(DEFAULT_TICKET_VALUE))
             .andExpect(jsonPath("$.status").value(DEFAULT_STATUS.toString()))
             .andExpect(jsonPath("$.ticketsNumber").value(DEFAULT_TICKETS_NUMBER.intValue()))
-            .andExpect(jsonPath("$.ticketsSold").value(DEFAULT_TICKETS_SOLD.intValue()))
-            .andExpect(jsonPath("$.winner").value(DEFAULT_WINNER.toString()));
+            .andExpect(jsonPath("$.ticketsSold").value(DEFAULT_TICKETS_SOLD.intValue()));
     }
 
     @Test
@@ -446,8 +439,7 @@ public class AnnouncementResourceIntTest {
             .ticketValue(UPDATED_TICKET_VALUE)
             .status(UPDATED_STATUS)
             .ticketsNumber(UPDATED_TICKETS_NUMBER)
-            .ticketsSold(UPDATED_TICKETS_SOLD)
-            .winner(UPDATED_WINNER);
+            .ticketsSold(UPDATED_TICKETS_SOLD);
 
         restAnnouncementMockMvc.perform(put("/api/announcements")
             .contentType(TestUtil.APPLICATION_JSON_UTF8)
@@ -479,7 +471,6 @@ public class AnnouncementResourceIntTest {
         assertThat(testAnnouncement.getStatus()).isEqualTo(UPDATED_STATUS);
         assertThat(testAnnouncement.getTicketsNumber()).isEqualTo(UPDATED_TICKETS_NUMBER);
         assertThat(testAnnouncement.getTicketsSold()).isEqualTo(UPDATED_TICKETS_SOLD);
-        assertThat(testAnnouncement.getWinner()).isEqualTo(UPDATED_WINNER);
 
         // Validate the Announcement in Elasticsearch
         Announcement announcementEs = announcementSearchRepository.findOne(testAnnouncement.getId());
@@ -557,8 +548,7 @@ public class AnnouncementResourceIntTest {
             .andExpect(jsonPath("$.[*].ticketValue").value(hasItem(DEFAULT_TICKET_VALUE)))
             .andExpect(jsonPath("$.[*].status").value(hasItem(DEFAULT_STATUS.toString())))
             .andExpect(jsonPath("$.[*].ticketsNumber").value(hasItem(DEFAULT_TICKETS_NUMBER.intValue())))
-            .andExpect(jsonPath("$.[*].ticketsSold").value(hasItem(DEFAULT_TICKETS_SOLD.intValue())))
-            .andExpect(jsonPath("$.[*].winner").value(hasItem(DEFAULT_WINNER.toString())));
+            .andExpect(jsonPath("$.[*].ticketsSold").value(hasItem(DEFAULT_TICKETS_SOLD.intValue())));
     }
 
     @Test

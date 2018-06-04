@@ -13,7 +13,10 @@ import java.util.List;
 @Repository
 public interface AnnouncementRepository extends JpaRepository<Announcement, Long> {
 
-    @Query("select announcement from Announcement announcement where announcement.user.login = ?#{principal.username}")
-    List<Announcement> findByUserIsCurrentUser();
+    @Query("select announcement from Announcement announcement where announcement.owner.login = ?#{principal.username}")
+    List<Announcement> findByOwnerIsCurrentUser();
+
+    @Query("select announcement from Announcement announcement where announcement.winner.login = ?#{principal.username}")
+    List<Announcement> findByWinnerIsCurrentUser();
 
 }

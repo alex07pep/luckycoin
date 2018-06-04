@@ -41,6 +41,7 @@ public class CacheConfiguration {
             cm.createCache(com.pep.luckycoin.domain.Transaction.class.getName(), jcacheConfiguration);
             cm.createCache(com.pep.luckycoin.domain.Credit.class.getName(), jcacheConfiguration);
             cm.createCache(com.pep.luckycoin.domain.Announcement.class.getName(), jcacheConfiguration);
+            cm.createCache(com.pep.luckycoin.domain.Announcement.class.getName() + ".transactions", jcacheConfiguration);
             // jhipster-needle-ehcache-add-entry
         };
     }

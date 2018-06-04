@@ -239,17 +239,19 @@
             <input type="number" class="form-control" name="ticketsSold" id="field_ticketsSold"
                 [(ngModel)]="announcement.ticketsSold" />
         </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.winner" for="field_winner">Winner</label>
-            <input type="text" class="form-control" name="winner" id="field_winner"
-                [(ngModel)]="announcement.winner" />
-        </div>
 
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.user" for="field_user">User</label>
-            <select class="form-control" id="field_user" name="user" [(ngModel)]="announcement.user" >
+            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.owner" for="field_owner">Owner</label>
+            <select class="form-control" id="field_owner" name="owner" [(ngModel)]="announcement.owner" >
                 <option [ngValue]="null"></option>
-                <option [ngValue]="userOption.id === announcement.user?.id ? announcement.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+                <option [ngValue]="userOption.id === announcement.owner?.id ? announcement.owner : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.winner" for="field_winner">Winner</label>
+            <select class="form-control" id="field_winner" name="winner" [(ngModel)]="announcement.winner" >
+                <option [ngValue]="null"></option>
+                <option [ngValue]="userOption.id === announcement.winner?.id ? announcement.winner : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
             </select>
         </div>
     </div>

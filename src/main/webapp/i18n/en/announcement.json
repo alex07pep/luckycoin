@@ -34,8 +34,9 @@
             "status": "Status",
             "ticketsNumber": "Tickets Number",
             "ticketsSold": "Tickets Sold",
+            "owner": "Owner",
             "winner": "Winner",
-            "user": "User"
+            "transactions": "Transactions"
         }
     }
 }

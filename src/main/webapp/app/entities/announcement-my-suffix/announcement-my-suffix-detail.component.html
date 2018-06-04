@@ -92,13 +92,13 @@
         <dd>
             <span>{{announcement.ticketsSold}}</span>
         </dd>
+        <dt><span jhiTranslate="luckycoinApp.announcement.owner">Owner</span></dt>
+        <dd>
+            {{announcement.owner?.login}}
+        </dd>
         <dt><span jhiTranslate="luckycoinApp.announcement.winner">Winner</span></dt>
         <dd>
-            <span>{{announcement.winner}}</span>
-        </dd>
-        <dt><span jhiTranslate="luckycoinApp.announcement.user">User</span></dt>
-        <dd>
-            {{announcement.user?.login}}
+            {{announcement.winner?.login}}
         </dd>
     </dl>
 

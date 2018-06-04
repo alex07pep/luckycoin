@@ -1,5 +1,6 @@
 package com.pep.luckycoin.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModel;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -10,6 +11,8 @@ import javax.validation.constraints.*;
 import org.springframework.data.elasticsearch.annotations.Document;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.Objects;
 
 import com.pep.luckycoin.domain.enumeration.AnnouncementCategory;
@@ -110,11 +113,16 @@ public class Announcement implements Serializable {
     @Column(name = "tickets_sold")
     private Long ticketsSold;
 
-    @Column(name = "winner")
-    private String winner;
+    @ManyToOne
+    private User owner;
 
     @ManyToOne
-    private User user;
+    private User winner;
+
+    @OneToMany(mappedBy = "announcement")
+    @JsonIgnore
+    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+    private Set<Transaction> transactions = new HashSet<>();
 
     // jhipster-needle-entity-add-field - JHipster will add fields here, do not remove
     public Long getId() {
@@ -398,30 +406,55 @@ public class Announcement implements Serializable {
         this.ticketsSold = ticketsSold;
     }
 
-    public String getWinner() {
+    public User getOwner() {
+        return owner;
+    }
+
+    public Announcement owner(User user) {
+        this.owner = user;
+        return this;
+    }
+
+    public void setOwner(User user) {
+        this.owner = user;
+    }
+
+    public User getWinner() {
         return winner;
     }
 
-    public Announcement winner(String winner) {
-        this.winner = winner;
+    public Announcement winner(User user) {
+        this.winner = user;
         return this;
     }
 
-    public void setWinner(String winner) {
-        this.winner = winner;
+    public void setWinner(User user) {
+        this.winner = user;
     }
 
-    public User getUser() {
-        return user;
+    public Set<Transaction> getTransactions() {
+        return transactions;
     }
 
-    public Announcement user(User user) {
-        this.user = user;
+    public Announcement transactions(Set<Transaction> transactions) {
+        this.transactions = transactions;
         return this;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public Announcement addTransactions(Transaction transaction) {
+        this.transactions.add(transaction);
+        transaction.setAnnouncement(this);
+        return this;
+    }
+
+    public Announcement removeTransactions(Transaction transaction) {
+        this.transactions.remove(transaction);
+        transaction.setAnnouncement(null);
+        return this;
+    }
+
+    public void setTransactions(Set<Transaction> transactions) {
+        this.transactions = transactions;
     }
     // jhipster-needle-entity-add-getters-setters - JHipster will add getters and setters here, do not remove
 
@@ -470,7 +503,6 @@ public class Announcement implements Serializable {
             ", status='" + getStatus() + "'" +
             ", ticketsNumber=" + getTicketsNumber() +
             ", ticketsSold=" + getTicketsSold() +
-            ", winner='" + getWinner() + "'" +
             "}";
     }
 }
