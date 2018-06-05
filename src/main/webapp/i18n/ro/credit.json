@@ -4,8 +4,8 @@
         "credit" : {
             "home": {
                 "title": "Credits",
-                "createLabel": "Creeare o nouă entitate Credit",
-                "createOrEditLabel": "Creeare sau editare Credit",
+                "createLabel": "Adauga Credit",
+                "createOrEditLabel": "Adauga sau Modifica Creditul",
                 "search": "Căutare după Credit"
             },
             "created": "A fost creată o nouă entitate Credit cu identificatorul {{ param }}",

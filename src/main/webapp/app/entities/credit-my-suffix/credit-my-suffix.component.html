@@ -2,10 +2,10 @@
     <h2>
         <span jhiTranslate="luckycoinApp.credit.home.title">Credits</span>
         <button class="btn btn-primary float-right jh-create-entity create-credit-my-suffix" [routerLink]="['/', { outlets: { popup: ['credit-my-suffix-new'] } }]">
-            <span class="fa fa-plus"></span>
             <span class="hidden-sm-down"  jhiTranslate="luckycoinApp.credit.home.createLabel">
-            Create new Credit
+            Add Credit
             </span>
+            <span class="fa fa-euro"></span>
         </button>
     </h2>
     <jhi-alert></jhi-alert>
@@ -42,7 +42,7 @@
                 <td>
                     {{credit.user?.login}}
                 </td>
-                <td class="text-right">
+                <td *jhiHasAnyAuthority ="'ROLE_ADMIN'"  class="text-right">
                     <div class="btn-group flex-btn-group-container">
                         <button type="submit"
                                 [routerLink]="['../credit-my-suffix', credit.id ]"

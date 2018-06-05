@@ -3,6 +3,8 @@ package com.pep.luckycoin.web.rest;
 import com.codahale.metrics.annotation.Timed;
 import com.pep.luckycoin.domain.Credit;
 import com.pep.luckycoin.repository.UserRepository;
+import com.pep.luckycoin.security.AuthoritiesConstants;
+import com.pep.luckycoin.security.SecurityUtils;
 import com.pep.luckycoin.service.CreditService;
 import com.pep.luckycoin.service.UserService;
 import com.pep.luckycoin.web.rest.errors.BadRequestAlertException;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
@@ -121,8 +124,14 @@ public class CreditResource {
     @Timed
     public List<Credit> getAllCredits() {
         log.debug("REST request to get all Credits");
-        return creditService.findAll();
+        if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
+            return creditService.findAll();
+        } else {
+            List<Credit> currentUserCredit = new ArrayList<>();
+            currentUserCredit.add(creditService.findByUserLogin(SecurityUtils.getCurrentUserLogin().get()));
+            return currentUserCredit;
         }
+    }
 
     /**
      * GET  /credits/:id : get the "id" credit.
