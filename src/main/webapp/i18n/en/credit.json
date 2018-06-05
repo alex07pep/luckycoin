@@ -5,7 +5,7 @@
             "home": {
                 "title": "Credits",
                 "createLabel": "Add Credit",
-                "createOrEditLabel": "Add or Modify Credit",
+                "createOrEditLabel": "Add or modify Credit",
                 "search": "Search for Credit"
             },
             "created": "A new Credit is created with identifier {{ param }}",
