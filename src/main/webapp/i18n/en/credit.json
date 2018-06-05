@@ -18,6 +18,7 @@
                 "title": "Credit"
             },
             "creditValue": "Credit Value",
+            "myCoins": "my Coins:",
             "user": "User"
         }
     }

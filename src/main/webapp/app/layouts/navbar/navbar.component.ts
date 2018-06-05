@@ -1,12 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
-import { JhiLanguageService } from 'ng-jhipster';
+import {JhiEventManager, JhiLanguageService} from 'ng-jhipster';
 
 import { ProfileService } from '../profiles/profile.service';
-import { JhiLanguageHelper, Principal, LoginModalService, LoginService } from '../../shared';
+import {JhiLanguageHelper, Principal, LoginModalService, LoginService, Account} from '../../shared';
 
 import { VERSION } from '../../app.constants';
+import {CreditMySuffix} from '../../entities/credit-my-suffix';
+import {CreditMySuffixService} from '../../entities/credit-my-suffix/credit-my-suffix.service';
+import {HttpResponse} from '@angular/common/http';
+import {Subscription} from 'rxjs/Subscription';
+import {AuthServerProvider} from '../../shared/auth/auth-jwt.service';
 
 @Component({
     selector: 'jhi-navbar',
@@ -16,12 +21,16 @@ import { VERSION } from '../../app.constants';
     ]
 })
 export class NavbarComponent implements OnInit {
+    account: Account;
     inProduction: boolean;
     isNavbarCollapsed: boolean;
     languages: any[];
     swaggerEnabled: boolean;
     modalRef: NgbModalRef;
     version: string;
+    myCredit: CreditMySuffix[];
+    private subscription: Subscription;
+    private eventSubscriber: Subscription;
 
     constructor(
         private loginService: LoginService,
@@ -30,13 +39,22 @@ export class NavbarComponent implements OnInit {
         private principal: Principal,
         private loginModalService: LoginModalService,
         private profileService: ProfileService,
-        private router: Router
+        private router: Router,
+        private eventManager: JhiEventManager,
+        private route: ActivatedRoute,
+        private authServerProvider: AuthServerProvider,
+        private creditService: CreditMySuffixService
+
     ) {
         this.version = VERSION ? 'v' + VERSION : '';
         this.isNavbarCollapsed = true;
     }
 
     ngOnInit() {
+        this.registerAuthenticationSuccess();
+        this.subscription = this.route.params.subscribe((params) => {
+            this.loadCredit();
+        });
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
         });
@@ -45,6 +63,18 @@ export class NavbarComponent implements OnInit {
             this.inProduction = profileInfo.inProduction;
             this.swaggerEnabled = profileInfo.swaggerEnabled;
         });
+        this.principal.identity().then((account) => {
+            this.account = account;
+        });
+        this.registerChangeInCredits();
+    }
+
+    loadCredit() {
+        this.creditService.query().subscribe(
+            (res: HttpResponse<CreditMySuffix[]>) => {
+                this.myCredit = res.body;
+            },
+        );
     }
 
     changeLanguage(languageKey: string) {
@@ -60,6 +90,7 @@ export class NavbarComponent implements OnInit {
     }
 
     login() {
+        this.loadCredit();
         this.modalRef = this.loginModalService.open();
     }
 
@@ -75,5 +106,15 @@ export class NavbarComponent implements OnInit {
 
     getImageUrl() {
         return this.isAuthenticated() ? this.principal.getImageUrl() : null;
+    }
+    registerChangeInCredits() {
+        this.eventSubscriber = this.eventManager.subscribe('creditListModification', (response) => this.loadCredit());
+    }
+    registerAuthenticationSuccess() {
+        this.eventManager.subscribe('authenticationSuccess', (message) => {
+            this.principal.identity().then((account) => {
+                this.account = account;
+            });
+        });
     }
 }

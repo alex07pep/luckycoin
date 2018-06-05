@@ -6,6 +6,21 @@
         <a class="navbar-brand logo float-left" routerLink="/" (click)="collapseNavbar()">
             <span class="logo-img"></span>
             <span jhiTranslate="global.title" class="navbar-title">Luckycoin</span> <span class="navbar-version">{{version}}</span>
+            <span [ngSwitch]="isAuthenticated()" >
+                <span class="navbar-credit" *ngSwitchCase="true" >
+                    <span jhiTranslate="luckycoinApp.credit.myCoins">My Coins</span>
+                    <span *ngFor="let credit of myCredit">
+                        <span *ngIf="credit.user.login == account.login" >{{credit.creditValue}}</span>
+                        <span *ngIf="credit.user.login == account.login"class="fa fa-money"></span>
+                    </span>
+                </span>
+                <button *ngSwitchCase="true" class="btn btn-success btn-sm jh-create-entity create-credit-my-suffix" [routerLink]="['/', { outlets: { popup: ['credit-my-suffix-new'] } }]">
+                    <span class="hidden-sm-down"  jhiTranslate="luckycoinApp.credit.home.createLabel">
+                    Add Credit
+                    </span>
+                    <span class="fa fa-euro"></span>
+                </button>
+            </span>
         </a>
     </div>
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed" [ngSwitch]="isAuthenticated()">

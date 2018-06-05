@@ -116,7 +116,7 @@ public class CreditResource {
     }
 
     /**
-     * GET  /credits : get all the credits.
+     * GET  /credits : get all the credits if you are admin or your's if you are user.
      *
      * @return the ResponseEntity with status 200 (OK) and the list of credits in body
      */
