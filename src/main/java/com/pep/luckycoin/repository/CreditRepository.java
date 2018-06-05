@@ -13,4 +13,5 @@ import org.springframework.data.jpa.repository.*;
 @Repository
 public interface CreditRepository extends JpaRepository<Credit, Long> {
 
+    Credit findByUserLogin(String s);
 }

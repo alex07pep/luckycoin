@@ -42,8 +42,16 @@ public interface CreditService {
      * Search for the credit corresponding to the query.
      *
      * @param query the query of the search
-     * 
+     *
      * @return the list of entities
      */
     List<Credit> search(String query);
+
+    /**
+     * Get one credit by User.
+     *
+     * @param userLogin the id of the entity
+     * @return the entity
+     */
+    Credit findByUserLogin(String userLogin);
 }

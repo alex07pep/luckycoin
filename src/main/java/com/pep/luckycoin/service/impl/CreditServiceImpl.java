@@ -73,6 +73,19 @@ public class CreditServiceImpl implements CreditService {
     }
 
     /**
+     * Get one credit by User.
+     *
+     * @param userLogin the id of the entity
+     * @return the entity
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public Credit findByUserLogin(String userLogin) {
+        log.debug("Request to get Credit by User: {}", userLogin);
+        return creditRepository.findByUserLogin(userLogin);
+    }
+
+    /**
      * Delete the credit by id.
      *
      * @param id the id of the entity

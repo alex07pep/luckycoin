@@ -18,13 +18,6 @@
                 [(ngModel)]="credit.creditValue" />
         </div>
 
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="luckycoinApp.credit.user" for="field_user">User</label>
-            <select class="form-control" id="field_user" name="user" [(ngModel)]="credit.user" >
-                <option [ngValue]="null"></option>
-                <option [ngValue]="userOption.id === credit.user?.id ? credit.user : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
-            </select>
-        </div>
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">

@@ -2,12 +2,15 @@ package com.pep.luckycoin.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.pep.luckycoin.domain.Credit;
+import com.pep.luckycoin.repository.UserRepository;
 import com.pep.luckycoin.service.CreditService;
+import com.pep.luckycoin.service.UserService;
 import com.pep.luckycoin.web.rest.errors.BadRequestAlertException;
 import com.pep.luckycoin.web.rest.util.HeaderUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +36,11 @@ public class CreditResource {
 
     private final CreditService creditService;
 
+    private UserRepository userRepository;
+
+    @Autowired
+    private UserService userService;
+
     public CreditResource(CreditService creditService) {
         this.creditService = creditService;
     }
@@ -51,6 +59,24 @@ public class CreditResource {
         if (credit.getId() != null) {
             throw new BadRequestAlertException("A new credit cannot already have an ID", ENTITY_NAME, "idexists");
         }
+
+        if(credit.getCreditValue() == null) {
+            credit.setCreditValue(new Long(0));
+        }
+
+        //Check if credit.User is empty and if so then create credit for current user
+        if(credit.getUser() == null) {
+            credit.setUser(userService.getUserWithAuthorities().get());
+        }
+
+        // Check if credit.User user already have a credit and if then update that credit with the new value
+        Credit existentCredit = creditService.findByUserLogin(credit.getUser().getLogin());
+        if(existentCredit != null) {
+            // in case there already is a credit for this User just update its value
+            credit.setId(existentCredit.getId());
+            return updateCredit(credit);
+        }
+
         Credit result = creditService.save(credit);
         return ResponseEntity.created(new URI("/api/credits/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
@@ -72,6 +98,13 @@ public class CreditResource {
         log.debug("REST request to update Credit : {}", credit);
         if (credit.getId() == null) {
             return createCredit(credit);
+        }
+        if(credit.getCreditValue() == null) {
+            credit.setCreditValue(new Long(0));
+        }
+        //Check if credit.User is empty and if so then create credit for current user
+        if(credit.getUser() == null) {
+            credit.setUser(userService.getUserWithAuthorities().get());
         }
         Credit result = creditService.save(credit);
         return ResponseEntity.ok()
