@@ -112,26 +112,6 @@
                 [(ngModel)]="announcement.photo4ContentType" />
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.addedDate" for="field_addedDate">Added Date</label>
-            <div class="input-group">
-                <input id="field_addedDate" type="text" class="form-control" name="addedDate" ngbDatepicker  #addedDateDp="ngbDatepicker" [(ngModel)]="announcement.addedDate"
-                />
-                <span class="input-group-append">
-                    <button type="button" class="btn btn-secondary" (click)="addedDateDp.toggle()"><i class="fa fa-calendar"></i></button>
-                </span>
-            </div>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.finishDate" for="field_finishDate">Finish Date</label>
-            <div class="input-group">
-                <input id="field_finishDate" type="text" class="form-control" name="finishDate" ngbDatepicker  #finishDateDp="ngbDatepicker" [(ngModel)]="announcement.finishDate"
-                />
-                <span class="input-group-append">
-                    <button type="button" class="btn btn-secondary" (click)="finishDateDp.toggle()"><i class="fa fa-calendar"></i></button>
-                </span>
-            </div>
-        </div>
-        <div class="form-group">
             <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.phoneNumber" for="field_phoneNumber">Phone Number</label>
             <input type="text" class="form-control" name="phoneNumber" id="field_phoneNumber"
                 [(ngModel)]="announcement.phoneNumber" required/>
@@ -211,48 +191,9 @@
             </div>
         </div>
         <div class="form-group">
-            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.minimPrice" for="field_minimPrice">Minim Price</label>
+            <label class="form-control-label number" jhiTranslate="luckycoinApp.announcement.minimPrice" for="field_minimPrice">Minim Price</label>
             <input type="number" class="form-control" name="minimPrice" id="field_minimPrice"
                 [(ngModel)]="announcement.minimPrice" />
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.ticketValue" for="field_ticketValue">Ticket Value</label>
-            <input type="number" class="form-control" name="ticketValue" id="field_ticketValue"
-                [(ngModel)]="announcement.ticketValue" />
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.status" for="field_status">Status</label>
-            <select class="form-control" name="status" [(ngModel)]="announcement.status" id="field_status" >
-                <option value="OPEN">{{'luckycoinApp.Status.OPEN' | translate}}</option>
-                <option value="CLOSED">{{'luckycoinApp.Status.CLOSED' | translate}}</option>
-                <option value="FINISED">{{'luckycoinApp.Status.FINISED' | translate}}</option>
-                <option value="COMPLETED">{{'luckycoinApp.Status.COMPLETED' | translate}}</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.ticketsNumber" for="field_ticketsNumber">Tickets Number</label>
-            <input type="number" class="form-control" name="ticketsNumber" id="field_ticketsNumber"
-                [(ngModel)]="announcement.ticketsNumber" />
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.ticketsSold" for="field_ticketsSold">Tickets Sold</label>
-            <input type="number" class="form-control" name="ticketsSold" id="field_ticketsSold"
-                [(ngModel)]="announcement.ticketsSold" />
-        </div>
-
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.owner" for="field_owner">Owner</label>
-            <select class="form-control" id="field_owner" name="owner" [(ngModel)]="announcement.owner" >
-                <option [ngValue]="null"></option>
-                <option [ngValue]="userOption.id === announcement.owner?.id ? announcement.owner : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label class="form-control-label" jhiTranslate="luckycoinApp.announcement.winner" for="field_winner">Winner</label>
-            <select class="form-control" id="field_winner" name="winner" [(ngModel)]="announcement.winner" >
-                <option [ngValue]="null"></option>
-                <option [ngValue]="userOption.id === announcement.winner?.id ? announcement.winner : userOption" *ngFor="let userOption of users; trackBy: trackUserById">{{userOption.login}}</option>
-            </select>
         </div>
     </div>
     <div class="modal-footer">

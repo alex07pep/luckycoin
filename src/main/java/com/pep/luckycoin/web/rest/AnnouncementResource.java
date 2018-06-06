@@ -2,13 +2,17 @@ package com.pep.luckycoin.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
 import com.pep.luckycoin.domain.Announcement;
+import com.pep.luckycoin.domain.enumeration.Status;
 import com.pep.luckycoin.service.AnnouncementService;
+import com.pep.luckycoin.service.UserService;
+import com.pep.luckycoin.service.util.RandomUtil;
 import com.pep.luckycoin.web.rest.errors.BadRequestAlertException;
 import com.pep.luckycoin.web.rest.util.HeaderUtil;
 import com.pep.luckycoin.web.rest.util.PaginationUtil;
 import io.github.jhipster.web.util.ResponseUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
@@ -20,6 +24,7 @@ import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
@@ -39,6 +44,9 @@ public class AnnouncementResource {
 
     private final AnnouncementService announcementService;
 
+    @Autowired
+    private UserService userService;
+
     public AnnouncementResource(AnnouncementService announcementService) {
         this.announcementService = announcementService;
     }
@@ -57,6 +65,20 @@ public class AnnouncementResource {
         if (announcement.getId() != null) {
             throw new BadRequestAlertException("A new announcement cannot already have an ID", ENTITY_NAME, "idexists");
         }
+
+        announcement.setOwner(userService.getUserWithAuthorities().get());
+        announcement.setWinner(null);
+        announcement.setAddedDate(LocalDate.now());
+        announcement.setFinishDate(LocalDate.now().plusMonths(2));
+        announcement.setStatus(Status.OPEN);
+        announcement.setTicketValue(10);
+        announcement.setTicketsNumber(RandomUtil.calculateNumberOfTickets(announcement.getPrice(), announcement.getTicketValue()));
+        announcement.setTicketsSold(Long.valueOf(0));
+
+        if(announcement.getMinimPrice() == null || announcement.getMinimPrice() == 0 || announcement.getMinimPrice() > announcement.getPrice()) {
+            announcement.setMinimPrice(announcement.getPrice());
+        }
+
         Announcement result = announcementService.save(announcement);
         return ResponseEntity.created(new URI("/api/announcements/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
