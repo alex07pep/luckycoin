@@ -6,13 +6,13 @@
             "home": "Acasă",
             "jhipster-needle-menu-add-element": "JHipster will add additional menu entries here (do not translate!)",
             "entities": {
-                "main": "Entități",
+                "main": "Meniu",
                 "bankAccount": "ContBancar",
                 "label": "Etichetă",
                 "operation": "Operație",
-                "transactionMySuffix": "Transaction",
+                "transactionMySuffix": "Tichete",
                 "creditMySuffix": "Credit",
-                "announcementMySuffix": "Announcement",
+                "announcementMySuffix": "Annunturi",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

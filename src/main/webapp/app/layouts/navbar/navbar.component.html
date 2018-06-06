@@ -3,9 +3,11 @@
         <a class="jh-navbar-toggler d-lg-none float-right" href="javascript:void(0);" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" (click)="toggleNavbar()">
             <i class="fa fa-bars"></i>
         </a>
-        <a class="navbar-brand logo float-left" routerLink="/" (click)="collapseNavbar()">
-            <span class="logo-img"></span>
-            <span jhiTranslate="global.title" class="navbar-title">Luckycoin</span> <span class="navbar-version">{{version}}</span>
+        <a class="navbar-brand logo float-left" (click)="collapseNavbar()">
+            <a routerLink="/" >
+                <span class="logo-img"></span>
+                <span jhiTranslate="global.title" class="navbar-title">Luckycoin</span> <span class="navbar-version">{{version}}</span>
+            </a>
             <span [ngSwitch]="isAuthenticated()" >
                 <span class="navbar-credit" *ngSwitchCase="true" >
                     <span jhiTranslate="luckycoinApp.credit.myCoins">My Coins</span>
@@ -46,19 +48,19 @@
                 <ul class="dropdown-menu" ngbDropdownMenu>
                     <li>
                         <a class="dropdown-item" routerLink="transaction-my-suffix" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <i class="fa fa-fw fa-ticket" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.entities.transactionMySuffix">Transaction My Suffix</span>
                         </a>
                     </li>
                     <li>
                         <a class="dropdown-item" routerLink="credit-my-suffix" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <i class="fa fa-fw fa-credit-card" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.entities.creditMySuffix">Credit My Suffix</span>
                         </a>
                     </li>
                     <li>
                         <a class="dropdown-item" routerLink="announcement-my-suffix" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="collapseNavbar()">
-                            <i class="fa fa-fw fa-asterisk" aria-hidden="true"></i>
+                            <i class="fa fa-fw fa-bullhorn" aria-hidden="true"></i>
                             <span jhiTranslate="global.menu.entities.announcementMySuffix">Announcement My Suffix</span>
                         </a>
                     </li>

@@ -51,10 +51,6 @@ export class NavbarComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.registerAuthenticationSuccess();
-        this.subscription = this.route.params.subscribe((params) => {
-            this.loadCredit();
-        });
         this.languageHelper.getAll().then((languages) => {
             this.languages = languages;
         });
@@ -65,6 +61,12 @@ export class NavbarComponent implements OnInit {
         });
         this.principal.identity().then((account) => {
             this.account = account;
+        });
+        this.registerAuthenticationSuccess();
+        this.subscription = this.route.params.subscribe((params) => {
+            this.principal.identity().then((account) => {
+                this.loadCredit();
+            });
         });
         this.registerChangeInCredits();
     }
@@ -114,6 +116,7 @@ export class NavbarComponent implements OnInit {
         this.eventManager.subscribe('authenticationSuccess', (message) => {
             this.principal.identity().then((account) => {
                 this.account = account;
+                this.loadCredit();
             });
         });
     }
