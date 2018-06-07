@@ -4,6 +4,8 @@ import { NgbModal, NgbModalRef } from '@ng-bootstrap/ng-bootstrap';
 import { HttpResponse } from '@angular/common/http';
 import { TransactionMySuffix } from './transaction-my-suffix.model';
 import { TransactionMySuffixService } from './transaction-my-suffix.service';
+import {AnnouncementMySuffixService} from '../announcement-my-suffix';
+import {AnnouncementMySuffix} from '../announcement-my-suffix/announcement-my-suffix.model';
 
 @Injectable()
 export class TransactionMySuffixPopupService {
@@ -12,7 +14,8 @@ export class TransactionMySuffixPopupService {
     constructor(
         private modalService: NgbModal,
         private router: Router,
-        private transactionService: TransactionMySuffixService
+        private transactionService: TransactionMySuffixService,
+        private announcementService: AnnouncementMySuffixService
 
     ) {
         this.ngbModalRef = null;
@@ -26,9 +29,10 @@ export class TransactionMySuffixPopupService {
             }
 
             if (id) {
-                this.transactionService.find(id)
-                    .subscribe((transactionResponse: HttpResponse<TransactionMySuffix>) => {
-                        const transaction: TransactionMySuffix = transactionResponse.body;
+                this.announcementService.find(id)
+                    .subscribe((announcementResponse: HttpResponse<AnnouncementMySuffix>) => {
+                        const transaction: TransactionMySuffix = new TransactionMySuffix();
+                        transaction.announcement = announcementResponse.body;
                         this.ngbModalRef = this.transactionModalRef(component, transaction);
                         resolve(this.ngbModalRef);
                     });

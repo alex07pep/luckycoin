@@ -108,7 +108,8 @@
             "edit": "Editare",
             "open": "Deschidere",
             "save": "Salvare",
-            "view": "Vizualizare"
+            "view": "Vizualizare",
+            "buyTicket": "Cumpara Tichet"
         },
         "detail": {
             "field": "Câmp",

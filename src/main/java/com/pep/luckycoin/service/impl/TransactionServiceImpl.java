@@ -60,6 +60,18 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     /**
+     * Get all the transactions where user is current user.
+     *
+     * @return the list of entities
+     */
+    @Override
+    @Transactional(readOnly = true)
+    public List<Transaction> findByUserIsCurrentUser() {
+        log.debug("Request to get all Transactions for current user");
+        return transactionRepository.findByUserIsCurrentUser();
+    }
+
+    /**
      * Get one transaction by id.
      *
      * @param id the id of the entity

@@ -29,32 +29,21 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="name"><span jhiTranslate="luckycoinApp.announcement.name">Name</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="category"><span jhiTranslate="luckycoinApp.announcement.category">Category</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="description"><span jhiTranslate="luckycoinApp.announcement.description">Description</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="photo1"><span jhiTranslate="luckycoinApp.announcement.photo1">Photo 1</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="photo2"><span jhiTranslate="luckycoinApp.announcement.photo2">Photo 2</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="photo3"><span jhiTranslate="luckycoinApp.announcement.photo3">Photo 3</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="photo4"><span jhiTranslate="luckycoinApp.announcement.photo4">Photo 4</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="addedDate"><span jhiTranslate="luckycoinApp.announcement.addedDate">Added Date</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="finishDate"><span jhiTranslate="luckycoinApp.announcement.finishDate">Finish Date</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="phoneNumber"><span jhiTranslate="luckycoinApp.announcement.phoneNumber">Phone Number</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="location"><span jhiTranslate="luckycoinApp.announcement.location">Location</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="price"><span jhiTranslate="luckycoinApp.announcement.price">Price</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="minimPrice"><span jhiTranslate="luckycoinApp.announcement.minimPrice">Minim Price</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="ticketValue"><span jhiTranslate="luckycoinApp.announcement.ticketValue">Ticket Value</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="status"><span jhiTranslate="luckycoinApp.announcement.status">Status</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="ticketsNumber"><span jhiTranslate="luckycoinApp.announcement.ticketsNumber">Tickets Number</span> <span class="fa fa-sort"></span></th>
             <th jhiSortBy="ticketsSold"><span jhiTranslate="luckycoinApp.announcement.ticketsSold">Tickets Sold</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="owner.login"><span jhiTranslate="luckycoinApp.announcement.owner">Owner</span> <span class="fa fa-sort"></span></th>
-            <th jhiSortBy="winner.login"><span jhiTranslate="luckycoinApp.announcement.winner">Winner</span> <span class="fa fa-sort"></span></th>
+            <th *jhiHasAnyAuthority ="'ROLE_ADMIN'" jhiSortBy="owner.login"><span jhiTranslate="luckycoinApp.announcement.owner">Owner</span> <span class="fa fa-sort"></span></th>
             <th></th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let announcement of announcements ;trackBy: trackId">
-                <td><a [routerLink]="['../announcement-my-suffix', announcement.id ]">{{announcement.id}}</a></td>
                 <td>{{announcement.name}}</td>
                 <td jhiTranslate="{{'luckycoinApp.AnnouncementCategory.' + announcement.category}}">{{announcement.category}}</td>
                 <td>{{announcement.description}}</td>
@@ -62,41 +51,15 @@
                     <a *ngIf="announcement.photo1" (click)="openFile(announcement.photo1ContentType, announcement.photo1)">
                         <img [src]="'data:' + announcement.photo1ContentType + ';base64,' + announcement.photo1" style="max-height: 30px;" alt="announcement image"/>
                     </a>
-                    <span *ngIf="announcement.photo1">{{announcement.photo1ContentType}}, {{byteSize(announcement.photo1)}}</span>
+                    <!--<span *ngIf="announcement.photo1">{{announcement.photo1ContentType}}, {{byteSize(announcement.photo1)}}</span>-->
                 </td>
-                <td>
-                    <a *ngIf="announcement.photo2" (click)="openFile(announcement.photo2ContentType, announcement.photo2)">
-                        <img [src]="'data:' + announcement.photo2ContentType + ';base64,' + announcement.photo2" style="max-height: 30px;" alt="announcement image"/>
-                    </a>
-                    <span *ngIf="announcement.photo2">{{announcement.photo2ContentType}}, {{byteSize(announcement.photo2)}}</span>
-                </td>
-                <td>
-                    <a *ngIf="announcement.photo3" (click)="openFile(announcement.photo3ContentType, announcement.photo3)">
-                        <img [src]="'data:' + announcement.photo3ContentType + ';base64,' + announcement.photo3" style="max-height: 30px;" alt="announcement image"/>
-                    </a>
-                    <span *ngIf="announcement.photo3">{{announcement.photo3ContentType}}, {{byteSize(announcement.photo3)}}</span>
-                </td>
-                <td>
-                    <a *ngIf="announcement.photo4" (click)="openFile(announcement.photo4ContentType, announcement.photo4)">
-                        <img [src]="'data:' + announcement.photo4ContentType + ';base64,' + announcement.photo4" style="max-height: 30px;" alt="announcement image"/>
-                    </a>
-                    <span *ngIf="announcement.photo4">{{announcement.photo4ContentType}}, {{byteSize(announcement.photo4)}}</span>
-                </td>
-                <td>{{announcement.addedDate | date:'mediumDate'}}</td>
                 <td>{{announcement.finishDate | date:'mediumDate'}}</td>
-                <td>{{announcement.phoneNumber}}</td>
-                <td jhiTranslate="{{'luckycoinApp.Location.' + announcement.location}}">{{announcement.location}}</td>
                 <td>{{announcement.price}}</td>
                 <td>{{announcement.minimPrice}}</td>
-                <td>{{announcement.ticketValue}}</td>
                 <td jhiTranslate="{{'luckycoinApp.Status.' + announcement.status}}">{{announcement.status}}</td>
-                <td>{{announcement.ticketsNumber}}</td>
-                <td>{{announcement.ticketsSold}}</td>
-                <td>
+                <td>{{announcement.ticketsSold}}/{{announcement.ticketsNumber}}</td>
+                <td *jhiHasAnyAuthority ="'ROLE_ADMIN'">
                     {{announcement.owner?.login}}
-                </td>
-                <td>
-                    {{announcement.winner?.login}}
                 </td>
                 <td class="text-right">
                     <div class="btn-group flex-btn-group-container">

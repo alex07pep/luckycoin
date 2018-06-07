@@ -42,8 +42,15 @@ public interface TransactionService {
      * Search for the transaction corresponding to the query.
      *
      * @param query the query of the search
-     * 
+     *
      * @return the list of entities
      */
     List<Transaction> search(String query);
+
+    /**
+     * Get all the transactions where user is current user.
+     *
+     * @return the list of entities
+     */
+    List<Transaction> findByUserIsCurrentUser();
 }

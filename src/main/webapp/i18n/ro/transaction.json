@@ -3,10 +3,11 @@
     "luckycoinApp": {
         "transaction" : {
             "home": {
-                "title": "Transactions",
+                "title": "Biletele mele",
                 "createLabel": "Creeare o nouă entitate Transaction",
                 "createOrEditLabel": "Creeare sau editare Transaction",
-                "search": "Căutare după Transaction"
+                "search": "Căutare după Transaction",
+                "buyTicket": "Doriti sa cumparati un bilet pentru acest anunt?"
             },
             "created": "A fost creată o nouă entitate Transaction cu identificatorul {{ param }}",
             "updated": "Transaction cu identificatorul {{ param }} a fost actualizată",

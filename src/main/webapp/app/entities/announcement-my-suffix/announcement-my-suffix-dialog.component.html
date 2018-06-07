@@ -48,7 +48,7 @@
             <div>
                 <img [src]="'data:' + announcement.photo1ContentType + ';base64,' + announcement.photo1" style="max-height: 100px;" *ngIf="announcement.photo1" alt="announcement image"/>
                 <div *ngIf="announcement.photo1" class="form-text text-danger clearfix">
-                    <span class="pull-left">{{announcement.photo1ContentType}}, {{byteSize(announcement.photo1)}}</span>
+                    <!--<span class="pull-left">{{announcement.photo1ContentType}}, {{byteSize(announcement.photo1)}}</span>-->
                     <button type="button" (click)="clearInputImage('photo1', 'photo1ContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
                         <span class="fa fa-times"></span>
                     </button>
