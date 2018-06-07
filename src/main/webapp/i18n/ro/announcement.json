@@ -4,9 +4,9 @@
         "announcement" : {
             "home": {
                 "title": "Announcements",
-                "createLabel": "Creeare o nouă entitate Announcement",
-                "createOrEditLabel": "Creeare sau editare Announcement",
-                "search": "Căutare după Announcement"
+                "createLabel": "Anunt",
+                "createOrEditLabel": "Creeaza/Editeaza Anunt",
+                "search": "Căutare după Anunturi"
             },
             "created": "A fost creată o nouă entitate Announcement cu identificatorul {{ param }}",
             "updated": "Announcement cu identificatorul {{ param }} a fost actualizată",

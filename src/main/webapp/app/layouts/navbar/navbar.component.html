@@ -6,7 +6,7 @@
         <a class="navbar-brand logo float-left" (click)="collapseNavbar()">
             <a routerLink="/" >
                 <span class="logo-img"></span>
-                <span jhiTranslate="global.title" class="navbar-title">Luckycoin</span> <span class="navbar-version">{{version}}</span>
+                <span jhiTranslate="global.title" class="navbar-title">Luckycoin</span>
             </a>
             <span [ngSwitch]="isAuthenticated()" >
                 <span class="navbar-credit" *ngSwitchCase="true" >
@@ -21,6 +21,12 @@
                     Add Credit
                     </span>
                     <span class="fa fa-euro"></span>
+                </button>
+                <button *ngSwitchCase="true" class="btn btn-primary btn-sm jh-create-entity create-announcement-my-suffix" [routerLink]="['/', { outlets: { popup: ['announcement-my-suffix-new'] } }]">
+                    <span class="fa fa-plus"></span>
+                    <span class="hidden-sm-down"  jhiTranslate="luckycoinApp.announcement.home.createLabel">
+                    Create new Announcement
+                    </span>
                 </button>
             </span>
         </a>

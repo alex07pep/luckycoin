@@ -4,7 +4,7 @@
         "announcement" : {
             "home": {
                 "title": "Announcements",
-                "createLabel": "Create a new Announcement",
+                "createLabel": "Announcement",
                 "createOrEditLabel": "Create or edit a Announcement",
                 "search": "Search for Announcement"
             },

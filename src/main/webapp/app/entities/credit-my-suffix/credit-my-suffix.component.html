@@ -1,7 +1,7 @@
 <div>
     <h2>
         <span jhiTranslate="luckycoinApp.credit.home.title">Credits</span>
-        <button class="btn btn-primary float-right jh-create-entity create-credit-my-suffix" [routerLink]="['/', { outlets: { popup: ['credit-my-suffix-new'] } }]">
+        <button class="btn btn-success float-right jh-create-entity create-credit-my-suffix" [routerLink]="['/', { outlets: { popup: ['credit-my-suffix-new'] } }]">
             <span class="hidden-sm-down"  jhiTranslate="luckycoinApp.credit.home.createLabel">
             Add Credit
             </span>
@@ -58,14 +58,14 @@
                             <span class="fa fa-pencil"></span>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button type="submit"
-                                [routerLink]="['/', { outlets: { popup: 'credit-my-suffix/'+ credit.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
-                                class="btn btn-danger btn-sm">
-                            <span class="fa fa-remove"></span>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                        </button>
+                        <!--<button type="submit"-->
+                                <!--[routerLink]="['/', { outlets: { popup: 'credit-my-suffix/'+ credit.id + '/delete'} }]"-->
+                                <!--replaceUrl="true"-->
+                                <!--queryParamsHandling="merge"-->
+                                <!--class="btn btn-danger btn-sm">-->
+                            <!--<span class="fa fa-remove"></span>-->
+                            <!--<span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>-->
+                        <!--</button>-->
                     </div>
                 </td>
             </tr>
