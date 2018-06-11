@@ -31,6 +31,7 @@ export class NavbarComponent implements OnInit {
     myCredit: CreditMySuffix[];
     private subscription: Subscription;
     private eventSubscriber: Subscription;
+    private currentInterval: number;
 
     constructor(
         private loginService: LoginService,
@@ -69,6 +70,14 @@ export class NavbarComponent implements OnInit {
             });
         });
         this.registerChangeInCredits();
+        this.updateCreditIntervalMethodCall();
+    }
+
+    public updateCreditIntervalMethodCall() {
+        this.currentInterval = window.setInterval(() => {
+            this.loadCredit();
+            // alert('working');
+        }, 2000);
     }
 
     loadCredit() {
