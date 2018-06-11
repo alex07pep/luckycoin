@@ -1,5 +1,6 @@
 package com.pep.luckycoin.repository;
 
+import com.pep.luckycoin.domain.Announcement;
 import com.pep.luckycoin.domain.Transaction;
 import org.springframework.stereotype.Repository;
 
@@ -15,5 +16,7 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
 
     @Query("select transaction from Transaction transaction where transaction.user.login = ?#{principal.username}")
     List<Transaction> findByUserIsCurrentUser();
+
+    List<Transaction> findByAnnouncement(Announcement announcement);
 
 }

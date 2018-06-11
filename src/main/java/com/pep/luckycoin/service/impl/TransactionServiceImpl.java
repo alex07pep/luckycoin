@@ -1,5 +1,6 @@
 package com.pep.luckycoin.service.impl;
 
+import com.pep.luckycoin.domain.Announcement;
 import com.pep.luckycoin.service.TransactionService;
 import com.pep.luckycoin.domain.Transaction;
 import com.pep.luckycoin.repository.TransactionRepository;
@@ -69,6 +70,17 @@ public class TransactionServiceImpl implements TransactionService {
     public List<Transaction> findByUserIsCurrentUser() {
         log.debug("Request to get all Transactions for current user");
         return transactionRepository.findByUserIsCurrentUser();
+    }
+
+    /**
+     * Get all the transactions where announcement is announcement given as param
+     *
+     * @param announcement
+     * @return the list of entities
+     */
+    @Override
+    public List<Transaction> findByAnnouncement(Announcement announcement) {
+        return transactionRepository.findByAnnouncement(announcement);
     }
 
     /**

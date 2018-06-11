@@ -6,7 +6,9 @@
                 "title": "Announcements",
                 "createLabel": "Announcement",
                 "createOrEditLabel": "Create or edit a Announcement",
-                "search": "Search for Announcement"
+                "search": "Search for Announcement",
+                "myAnnouncements": "My announcements",
+                "allAnnouncements": "All announcements"
             },
             "created": "A new Announcement is created with identifier {{ param }}",
             "updated": "A Announcement is updated with identifier {{ param }}",

@@ -3,10 +3,12 @@ package com.pep.luckycoin;
 import com.pep.luckycoin.config.ApplicationProperties;
 import com.pep.luckycoin.config.DefaultProfileUtil;
 
+import com.pep.luckycoin.service.AnnouncementService;
 import io.github.jhipster.config.JHipsterConstants;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.autoconfigure.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
@@ -14,10 +16,12 @@ import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.core.env.Environment;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import javax.annotation.PostConstruct;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -29,6 +33,8 @@ public class LuckycoinApp {
     private static final Logger log = LoggerFactory.getLogger(LuckycoinApp.class);
 
     private final Environment env;
+
+    private AnnouncementService announcementService;
 
     public LuckycoinApp(Environment env) {
         this.env = env;
@@ -52,6 +58,20 @@ public class LuckycoinApp {
             log.error("You have misconfigured your application! It should not " +
                 "run with both the 'dev' and 'cloud' profiles at the same time.");
         }
+    }
+
+    /**
+     * Every day at 15:00 check expired Announcements
+     * Using cron expression
+     */
+    @Scheduled(cron = "0 0 15 * * ?")
+    public void scheduleEverydayCheckForExpiredAnnouncements() {
+
+        long now = System.currentTimeMillis() / 1000;
+        System.out.println(
+            "schedule tasks using cron jobs - " + now);
+        log.info("Cron Task :: Execution Time - {}", LocalDateTime.now());
+        announcementService.resolveExpiredAnnouncements();
     }
 
     /**

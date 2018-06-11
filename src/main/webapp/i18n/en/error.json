@@ -1,5 +1,6 @@
 {
     "error": {
+        "notEnoughCredit": "Not enough credit!",
         "title": "Error page!",
         "http": {
             "400": "Bad request.",

@@ -1,9 +1,12 @@
 package com.pep.luckycoin.web.rest;
 
 import com.codahale.metrics.annotation.Timed;
+import com.pep.luckycoin.domain.Credit;
 import com.pep.luckycoin.domain.Transaction;
 import com.pep.luckycoin.security.AuthoritiesConstants;
 import com.pep.luckycoin.security.SecurityUtils;
+import com.pep.luckycoin.service.AnnouncementService;
+import com.pep.luckycoin.service.CreditService;
 import com.pep.luckycoin.service.TransactionService;
 import com.pep.luckycoin.service.UserService;
 import com.pep.luckycoin.web.rest.errors.BadRequestAlertException;
@@ -38,7 +41,13 @@ public class TransactionResource {
     private final TransactionService transactionService;
 
     @Autowired
+    private AnnouncementService announcementService;
+
+    @Autowired
     private UserService userService;
+
+    @Autowired
+    private CreditService creditService;
 
     public TransactionResource(TransactionService transactionService) {
         this.transactionService = transactionService;
@@ -58,12 +67,26 @@ public class TransactionResource {
         if (transaction.getId() != null) {
             throw new BadRequestAlertException("A new transaction cannot already have an ID", ENTITY_NAME, "idexists");
         }
-        transaction.setCompleted(false);
-        transaction.setUser(userService.getUserWithAuthorities().get());
-        Transaction result = transactionService.save(transaction);
-        return ResponseEntity.created(new URI("/api/transactions/" + result.getId()))
-            .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
-            .body(result);
+        Credit currentUserCredit = creditService.findByUserLogin(userService.getUserWithAuthorities().get().getLogin());
+        if(currentUserCredit.getCreditValue() >= transaction.getAnnouncement().getTicketValue()) {
+            transaction.setCompleted(false);
+            transaction.setUser(userService.getUserWithAuthorities().get());
+            Transaction result = transactionService.save(transaction);
+            transaction.getAnnouncement().setTicketsSold(transaction.getAnnouncement().getTicketsSold() + 1);
+            announcementService.save(transaction.getAnnouncement());
+            currentUserCredit.setCreditValue(currentUserCredit.getCreditValue() - transaction.getAnnouncement().getTicketValue());
+            creditService.save(currentUserCredit);
+            //if all tickets are sold set winner
+            if(transaction.getAnnouncement().getTicketsSold() >= transaction.getAnnouncement().getTicketsNumber()) {
+                announcementService.setWinnerForAnnouncement(transaction.getAnnouncement());
+            }
+            return ResponseEntity.created(new URI("/api/transactions/" + result.getId()))
+                .headers(HeaderUtil.createEntityCreationAlert(ENTITY_NAME, result.getId().toString()))
+                .body(result);
+        } else {
+            throw new BadRequestAlertException("", "creditMySuffix", "notEnoughCredit");
+        }
+
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.pep.luckycoin.service.util;
 
 import org.apache.commons.lang3.RandomStringUtils;
+import org.apache.commons.lang3.RandomUtils;
 
 /**
  * Utility class for Luckycoin :)
@@ -49,5 +50,14 @@ public final class RandomUtil {
      */
     public static Long calculateNumberOfTickets(Long announcementPrice, int ticketValue) {
         return (announcementPrice + ticketValue - 1) / ticketValue;
+    }
+
+    /**
+     * Generate a random Winner.
+     *
+     * @return the generated winner index
+     */
+    public static int generateRandomWinner(int numberOfTickets) {
+        return RandomUtils.nextInt(0, numberOfTickets);
     }
 }

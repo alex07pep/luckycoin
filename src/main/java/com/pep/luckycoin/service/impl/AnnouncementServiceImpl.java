@@ -1,17 +1,30 @@
 package com.pep.luckycoin.service.impl;
 
+import com.pep.luckycoin.domain.Credit;
+import com.pep.luckycoin.domain.Transaction;
+import com.pep.luckycoin.repository.TransactionRepository;
 import com.pep.luckycoin.service.AnnouncementService;
 import com.pep.luckycoin.domain.Announcement;
 import com.pep.luckycoin.repository.AnnouncementRepository;
 import com.pep.luckycoin.repository.search.AnnouncementSearchRepository;
+import com.pep.luckycoin.service.CreditService;
+import com.pep.luckycoin.service.TransactionService;
+import com.pep.luckycoin.service.util.RandomUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.time.LocalDate;
+import java.util.List;
+
+import static com.pep.luckycoin.domain.enumeration.Status.CLOSED;
+import static com.pep.luckycoin.domain.enumeration.Status.FINISED;
+import static com.pep.luckycoin.domain.enumeration.Status.OPEN;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -26,6 +39,12 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     private final AnnouncementRepository announcementRepository;
 
     private final AnnouncementSearchRepository announcementSearchRepository;
+
+    @Autowired
+    private TransactionService transactionService;
+
+    @Autowired
+    private CreditService creditService;
 
     public AnnouncementServiceImpl(AnnouncementRepository announcementRepository, AnnouncementSearchRepository announcementSearchRepository) {
         this.announcementRepository = announcementRepository;
@@ -98,4 +117,65 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         Page<Announcement> result = announcementSearchRepository.search(queryStringQuery(query), pageable);
         return result;
     }
+
+    /**
+     *  Find all announcements that expire today and change status for everyone
+     *  - to COSED if min price is no reached
+     *  - or to FINISED is min price is reached
+     *
+     */
+    @Override
+    public void resolveExpiredAnnouncements() {
+        List<Announcement> announcementsToBeRTesolved = announcementRepository.findByFinishDate(LocalDate.now());
+        for(Announcement singleAnnouncement: announcementsToBeRTesolved) {
+            // if min price is not reached return money and set status to CLOSED
+            if(singleAnnouncement.getTicketsSold()*singleAnnouncement.getTicketValue() < singleAnnouncement.getMinimPrice()) {
+                returnCreditForAnnouncement(singleAnnouncement);
+            } else {
+                // if min price is reached choose a random winner and set status to FINISHED
+                setWinnerForAnnouncement(singleAnnouncement);
+            }
+        }
+
+    }
+
+    /**
+     * Return the credit for all tickets from an announcement given as param to buyers
+     * Set status to CLOSED for announcement
+     *
+     * @param announcement to return credit for
+     */
+    @Override
+    public void returnCreditForAnnouncement(Announcement announcement) {
+        List<Transaction> transactionsTicketsList = transactionService.findByAnnouncement(announcement);
+        for(Transaction transactionTicket: transactionsTicketsList) {
+            // if transaction is not processed
+            if(!transactionTicket.isCompleted()) {
+                Credit userCreditToReturn = creditService.findByUserLogin(transactionTicket.getUser().getLogin());
+                // return credit to it's buyer
+                userCreditToReturn.setCreditValue(userCreditToReturn.getCreditValue() + announcement.getTicketValue());
+                creditService.save(userCreditToReturn);
+                //mark transaction as completed
+                transactionTicket.setCompleted(true);
+                transactionService.save(transactionTicket);
+            }
+        }
+        announcement.setStatus(CLOSED);
+    }
+
+    /**
+     * Set a random winner for announcement given as param
+     * Set status to Finished for announcement
+     *
+     * @param announcement to set winner to
+     */
+    @Override
+    public void setWinnerForAnnouncement(Announcement announcement) {
+        List<Transaction> transactionsTicketsList = transactionService.findByAnnouncement(announcement);
+        announcement.setWinner(transactionsTicketsList.get(RandomUtil.generateRandomWinner(transactionsTicketsList.size())).getUser());
+        announcement.setStatus(FINISED);
+        save(announcement);
+    }
+
+    //TODO from FINISHED to CLOSED before returnCredit() or to COMPLETED and payOwnerForProduct();
 }

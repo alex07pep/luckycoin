@@ -156,4 +156,16 @@ currentAccount: any;
     private onError(error) {
         this.jhiAlertService.error(error.message, null, null);
     }
+
+    showMyAnnouncements() {
+        this.currentSearch = this.currentAccount.login;
+        this.search(this.currentSearch);
+    }
+
+    isUsersAnnouncement(announcementOwner) {
+        if (this.currentAccount.login === announcementOwner) {
+            return true;
+        }
+        return false;
+    }
 }

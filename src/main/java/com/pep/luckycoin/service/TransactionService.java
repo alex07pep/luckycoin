@@ -1,5 +1,6 @@
 package com.pep.luckycoin.service;
 
+import com.pep.luckycoin.domain.Announcement;
 import com.pep.luckycoin.domain.Transaction;
 import java.util.List;
 
@@ -53,4 +54,12 @@ public interface TransactionService {
      * @return the list of entities
      */
     List<Transaction> findByUserIsCurrentUser();
+
+    /**
+     * Get all the transactions where announcement is announcement given as param
+     *
+     * @param announcement
+     * @return the list of entities
+     */
+    List<Transaction> findByAnnouncement(Announcement announcement);
 }
