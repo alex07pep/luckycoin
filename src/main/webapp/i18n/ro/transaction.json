@@ -20,7 +20,9 @@
             },
             "completed": "Completed",
             "user": "User",
-            "announcement": "Announcement"
+            "announcement": "Announcement",
+            "acceptProduct": "Accepta produs",
+            "declineProduct": "Refuza produs"
         }
     }
 }

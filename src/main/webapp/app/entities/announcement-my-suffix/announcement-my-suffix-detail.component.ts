@@ -6,6 +6,7 @@ import { JhiEventManager, JhiDataUtils } from 'ng-jhipster';
 
 import { AnnouncementMySuffix } from './announcement-my-suffix.model';
 import { AnnouncementMySuffixService } from './announcement-my-suffix.service';
+import {Account, Principal} from '../../shared';
 
 @Component({
     selector: 'jhi-announcement-my-suffix-detail',
@@ -16,10 +17,12 @@ export class AnnouncementMySuffixDetailComponent implements OnInit, OnDestroy {
     announcement: AnnouncementMySuffix;
     private subscription: Subscription;
     private eventSubscriber: Subscription;
+    account: Account;
 
     constructor(
         private eventManager: JhiEventManager,
         private dataUtils: JhiDataUtils,
+        private principal: Principal,
         private announcementService: AnnouncementMySuffixService,
         private route: ActivatedRoute
     ) {
@@ -30,6 +33,9 @@ export class AnnouncementMySuffixDetailComponent implements OnInit, OnDestroy {
             this.load(params['id']);
         });
         this.registerChangeInAnnouncements();
+        this.principal.identity().then((account) => {
+            this.account = account;
+        });
     }
 
     load(id) {
@@ -59,5 +65,13 @@ export class AnnouncementMySuffixDetailComponent implements OnInit, OnDestroy {
             'announcementListModification',
             (response) => this.load(this.announcement.id)
         );
+    }
+
+    acceptProduct() {
+
+    }
+
+    declineProduct() {
+
     }
 }

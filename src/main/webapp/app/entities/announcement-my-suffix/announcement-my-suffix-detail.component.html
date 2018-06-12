@@ -108,18 +108,46 @@
         <span class="fa fa-arrow-left"></span>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
     </button>
 
-    <button type="button"
+    <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button"
             [routerLink]="['/', { outlets: { popup: 'announcement-my-suffix/'+ announcement.id + '/edit'} }]"
             replaceUrl="true"
             queryParamsHandling="merge"
             class="btn btn-primary">
         <span class="fa fa-pencil"></span>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
     </button>
-    <button type="button"
+    <button *ngIf="announcement.status.toString() == 'OPEN'" type="button"
             [routerLink]="['/', { outlets: { popup: 'transaction-my-suffix/'+ announcement.id + '/edit'} }]"
             replaceUrl="true"
             queryParamsHandling="merge"
-            class="btn btn-primary">
+            class="btn btn-primary" ng-disabled="checked">
         <span class="fa fa-ticket"></span>&nbsp;<span jhiTranslate="entity.action.buyTicket"> Buy Ticket</span>
     </button>
+    <a *ngIf="announcement.winner" >
+        <a [ngSwitch]="announcement.winner.login == account.login">
+            <button *ngSwitchCase="true" type="button"
+                    (click)="declineProduct()"
+                    class="btn btn-danger float-sm-right">
+                <span class="fa fa-times"></span>&nbsp;<span jhiTranslate="luckycoinApp.transaction.declineProduct"> Decline</span>
+            </button>
+            <button *ngSwitchCase="true" type="button"
+                    (click)="acceptProduct()"
+                    class="btn btn-success float-sm-right">
+                <span class="fa fa-check"></span>&nbsp;<span jhiTranslate="luckycoinApp.transaction.acceptProduct"> Accept</span>
+            </button>
+            <a *ngSwitchCase="false">
+                <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button"
+                        (click)="declineProduct()"
+                        class="btn btn-danger float-sm-right">
+                    <span class="fa fa-trophy"></span>&nbsp;<span jhiTranslate="luckycoinApp.transaction.declineProduct"> Decline</span>
+                </button>
+                <button *jhiHasAnyAuthority="'ROLE_ADMIN'" type="button"
+                        (click)="acceptProduct()"
+                        class="btn btn-success float-sm-right">
+                    <span class="fa fa-hand-holding-usd"></span>&nbsp;<span jhiTranslate="luckycoinApp.transaction.acceptProduct"> Accept</span>
+                </button>
+            </a>
+        </a>
+
+    </a>
+
 </div>
