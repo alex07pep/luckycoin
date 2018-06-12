@@ -14,6 +14,7 @@ import com.pep.luckycoin.service.dto.UserDTO;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -45,6 +46,9 @@ public class UserService {
     private final AuthorityRepository authorityRepository;
 
     private final CacheManager cacheManager;
+
+    @Autowired
+    private CreditService creditService;
 
     public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder, UserSearchRepository userSearchRepository, AuthorityRepository authorityRepository, CacheManager cacheManager) {
         this.userRepository = userRepository;
@@ -121,6 +125,8 @@ public class UserService {
         cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).evict(newUser.getLogin());
         cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE).evict(newUser.getEmail());
         log.debug("Created Information for User: {}", newUser);
+        // initialise users credit
+        creditService.initializeCreditForUser(newUser);
         return newUser;
     }
 
@@ -152,6 +158,8 @@ public class UserService {
         cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).evict(user.getLogin());
         cacheManager.getCache(UserRepository.USERS_BY_EMAIL_CACHE).evict(user.getEmail());
         log.debug("Created Information for User: {}", user);
+        // initialise users credit
+        creditService.initializeCreditForUser(user);
         return user;
     }
 
@@ -213,6 +221,8 @@ public class UserService {
 
     public void deleteUser(String login) {
         userRepository.findOneByLogin(login).ifPresent(user -> {
+            //delete user credit
+            creditService.delete(creditService.findByUserLogin(login).getId());
             userRepository.delete(user);
             userSearchRepository.delete(user);
             cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).evict(user.getLogin());

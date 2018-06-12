@@ -1,6 +1,8 @@
 package com.pep.luckycoin.service;
 
 import com.pep.luckycoin.domain.Credit;
+import com.pep.luckycoin.domain.User;
+
 import java.util.List;
 
 /**
@@ -54,4 +56,11 @@ public interface CreditService {
      * @return the entity
      */
     Credit findByUserLogin(String userLogin);
+
+    /**
+     * Initialize credit for given user as param
+     *
+     * @param user
+     */
+    void initializeCreditForUser (User user);
 }

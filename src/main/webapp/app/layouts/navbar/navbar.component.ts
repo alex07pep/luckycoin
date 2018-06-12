@@ -70,22 +70,25 @@ export class NavbarComponent implements OnInit {
             });
         });
         this.registerChangeInCredits();
-        this.updateCreditIntervalMethodCall();
     }
 
     public updateCreditIntervalMethodCall() {
-        this.currentInterval = window.setInterval(() => {
-            this.loadCredit();
-            // alert('working');
-        }, 2000);
+        if (this.isAuthenticated() === true) {
+            this.currentInterval = window.setInterval(() => {
+                this.loadCredit();
+                // alert('working');
+            }, 2000);
+        }
     }
 
     loadCredit() {
-        this.creditService.query().subscribe(
-            (res: HttpResponse<CreditMySuffix[]>) => {
-                this.myCredit = res.body;
-            },
-        );
+        if (this.isAuthenticated() === true) {
+            this.creditService.query().subscribe(
+                (res: HttpResponse<CreditMySuffix[]>) => {
+                    this.myCredit = res.body;
+                },
+            );
+        }
     }
 
     changeLanguage(languageKey: string) {
@@ -126,6 +129,7 @@ export class NavbarComponent implements OnInit {
             this.principal.identity().then((account) => {
                 this.account = account;
                 this.loadCredit();
+                this.updateCreditIntervalMethodCall();
             });
         });
     }

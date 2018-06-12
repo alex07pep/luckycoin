@@ -39,8 +39,6 @@ public class CreditResource {
 
     private final CreditService creditService;
 
-    private UserRepository userRepository;
-
     @Autowired
     private UserService userService;
 
@@ -124,6 +122,8 @@ public class CreditResource {
     @Timed
     public List<Credit> getAllCredits() {
         log.debug("REST request to get all Credits");
+        // initialize credit for current user
+        creditService.initializeCreditForUser(userService.getUserWithAuthorities().get());
         if (SecurityUtils.isCurrentUserInRole(AuthoritiesConstants.ADMIN)) {
             return creditService.findAll();
         } else {

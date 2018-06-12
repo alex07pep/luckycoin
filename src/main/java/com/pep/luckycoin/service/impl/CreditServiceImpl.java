@@ -1,5 +1,6 @@
 package com.pep.luckycoin.service.impl;
 
+import com.pep.luckycoin.domain.User;
 import com.pep.luckycoin.service.CreditService;
 import com.pep.luckycoin.domain.Credit;
 import com.pep.luckycoin.repository.CreditRepository;
@@ -110,5 +111,21 @@ public class CreditServiceImpl implements CreditService {
         return StreamSupport
             .stream(creditSearchRepository.search(queryStringQuery(query)).spliterator(), false)
             .collect(Collectors.toList());
+    }
+
+    /**
+     * Initialize credit for given user as param
+     *
+     * @param user
+     */
+    @Override
+    public void initializeCreditForUser (User user) {
+        Credit userCredit =  findByUserLogin(user.getLogin());
+        if(userCredit == null) {
+            userCredit = new Credit();
+            userCredit.setCreditValue(new Long(0));
+            userCredit.setUser(user);
+            save(userCredit);
+        }
     }
 }
