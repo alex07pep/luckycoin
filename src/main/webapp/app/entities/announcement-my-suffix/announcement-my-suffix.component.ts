@@ -159,7 +159,15 @@ currentAccount: any;
 
     showMyAnnouncements() {
         this.currentSearch = this.currentAccount.login;
-        this.search(this.currentSearch);
+        this.announcementService.search({
+            page: this.page - 1,
+            query: this.currentSearch,
+            size: this.itemsPerPage,
+            sort: this.sort()}).subscribe(
+            (res: HttpResponse<AnnouncementMySuffix[]>) => this.onSuccess(res.body, res.headers),
+            (res: HttpErrorResponse) => this.onError(res.message)
+        );
+
     }
 
     isUsersAnnouncement(announcementOwner) {
