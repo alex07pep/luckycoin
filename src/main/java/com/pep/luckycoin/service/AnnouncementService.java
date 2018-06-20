@@ -3,6 +3,7 @@ package com.pep.luckycoin.service;
 import com.pep.luckycoin.domain.Announcement;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 
 /**
  * Service Interface for managing Announcement.
@@ -63,7 +64,7 @@ public interface AnnouncementService {
      *
      * @param announcement to return credit for
      */
-    public void returnCreditForAnnouncement(Announcement announcement);
+    void returnCreditForAnnouncement(Announcement announcement);
 
     /**
      * Set a random winner for announcement given as param
@@ -71,5 +72,11 @@ public interface AnnouncementService {
      *
      * @param announcement to set winner to
      */
-    public void setWinnerForAnnouncement(Announcement announcement);
+    void setWinnerForAnnouncement(Announcement announcement);
+
+    /**
+     * Every day at 15:00 check expired Announcements
+     * Using cron expression
+     */
+    void scheduleEverydayCheckForExpiredAnnouncements();
 }

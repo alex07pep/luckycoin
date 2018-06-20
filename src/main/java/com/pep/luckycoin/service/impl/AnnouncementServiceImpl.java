@@ -15,11 +15,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.pep.luckycoin.domain.enumeration.Status.CLOSED;
@@ -175,6 +177,21 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         announcement.setWinner(transactionsTicketsList.get(RandomUtil.generateRandomWinner(transactionsTicketsList.size())).getUser());
         announcement.setStatus(FINISED);
         save(announcement);
+    }
+
+    /**
+     * Every day at 15:00 check expired Announcements
+     * Using cron expression
+     */
+    @Override
+    @Scheduled(cron = "0 0 15 * * ?")
+    public void scheduleEverydayCheckForExpiredAnnouncements() {
+
+        long now = System.currentTimeMillis() / 1000;
+        System.out.println(
+            "schedule tasks using cron jobs - " + now);
+        log.info("Cron Task :: Execution Time - {}", LocalDateTime.now());
+        resolveExpiredAnnouncements();
     }
 
     //TODO from FINISHED to CLOSED before returnCredit() or to COMPLETED and payOwnerForProduct();
