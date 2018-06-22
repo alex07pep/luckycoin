@@ -181,6 +181,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
 
     /**
      * Every day at 15:00 check expired Announcements
+     * This is scheduled to get fired everyday, at 03:00 (pm).
      * Using cron expression
      */
     @Override
