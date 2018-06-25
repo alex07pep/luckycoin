@@ -5,15 +5,15 @@
         "logged": {
             "message": "You are logged in as user \"{{username}}\"."
         },
-        "question": "If you have any question on JHipster:",
+        "question": "Luckycoin makes your life easier:",
         "link": {
-            "homepage": "JHipster homepage",
-            "stackoverflow": "JHipster on Stack Overflow",
-            "bugtracker": "JHipster bug tracker",
-            "chat": "JHipster public chat room",
-            "follow": "follow @java_hipster on Twitter"
+            "homepage": "Luckycoin homepage",
+            "stackoverflow": "Sell what you don't need",
+            "bugtracker": "Get your money",
+            "chat": "Contact the seller to directly buy the product",
+            "follow": "Take your chance and win the product"
         },
-        "like": "If you like JHipster, don't forget to give us a star on",
-        "github": "GitHub"
+        "like": "If you have any questions please feel fre to contact us on",
+        "github": "pep.luckycoin@gmail.com"
     }
 }

@@ -5,15 +5,15 @@
         "logged": {
             "message": "Ești autentificat cu numele de utilizator \"{{username}}\"."
         },
-        "question": "Dacă ai orice întrebări în legatură cu JHipster:",
+        "question": "Luckycoin iți face viața mai ușoară:",
         "link": {
-            "homepage": "Pagina JHipster",
-            "stackoverflow": "JHipster pe Stack Overflow",
-            "bugtracker": "JHipster bug tracker",
-            "chat": "Camera de chat publică pentru JHipster",
-            "follow": "Contactează @java_hipster pe Twitter"
+            "homepage": "Pagina Luckycoin",
+            "stackoverflow": "Vinde ce nu mai folosești",
+            "bugtracker": "I-ați bani doriți pe produsele vândute",
+            "chat": "Contactează vânzătorul pentru a cumpăra direct produsul",
+            "follow": "Încearca-ți norocul și câștigă produsul"
         },
-        "like": "Dacă iți place JHipster nu uita să ne dai o stea pe",
-        "github": "GitHub"
+        "like": "Dacă aveți orice fel de întrebare, contactați-ne prin email la",
+        "github": "pep.luckycoin@gmail.com"
     }
 }
