@@ -1,6 +1,6 @@
 {
     "error": {
-        "notEnoughCredit": "Credit insuficient!",
+        "notEnoughCredit": "Credit insuficient sau nu mai sunt bilete!",
         "title": "Pagină eroare!",
         "http": {
             "400": "Bad request.",

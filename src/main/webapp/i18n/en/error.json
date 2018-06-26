@@ -1,6 +1,6 @@
 {
     "error": {
-        "notEnoughCredit": "Not enough credit!",
+        "notEnoughCredit": "Insufficient credit or tickets out of stock!",
         "title": "Error page!",
         "http": {
             "400": "Bad request.",

@@ -14,6 +14,8 @@ export type EntityResponseType = HttpResponse<AnnouncementMySuffix>;
 export class AnnouncementMySuffixService {
 
     private resourceUrl =  SERVER_API_URL + 'api/announcements';
+    private resourceUrlDecline = SERVER_API_URL + 'api/announcementsDecline';
+    private resourceUrlAccept = SERVER_API_URL + 'api/announcementsAccept';
     private resourceSearchUrl = SERVER_API_URL + 'api/_search/announcements';
 
     constructor(private http: HttpClient, private dateUtils: JhiDateUtils) { }
@@ -27,6 +29,16 @@ export class AnnouncementMySuffixService {
     update(announcement: AnnouncementMySuffix): Observable<EntityResponseType> {
         const copy = this.convert(announcement);
         return this.http.put<AnnouncementMySuffix>(this.resourceUrl, copy, { observe: 'response' })
+            .map((res: EntityResponseType) => this.convertResponse(res));
+    }
+
+    accept(id: number): Observable<EntityResponseType> {
+        return this.http.get<AnnouncementMySuffix>(`${this.resourceUrlAccept}/${id}`, { observe: 'response'})
+            .map((res: EntityResponseType) => this.convertResponse(res));
+    }
+
+    decline(id: number): Observable<EntityResponseType> {
+        return this.http.get<AnnouncementMySuffix>(`${this.resourceUrlDecline}/${id}`, { observe: 'response'})
             .map((res: EntityResponseType) => this.convertResponse(res));
     }
 

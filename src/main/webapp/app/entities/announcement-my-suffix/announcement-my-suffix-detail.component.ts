@@ -68,10 +68,18 @@ export class AnnouncementMySuffixDetailComponent implements OnInit, OnDestroy {
     }
 
     acceptProduct() {
-
+        this.announcementService.accept(this.announcement.id)
+            .subscribe((announcementResponse: HttpResponse<AnnouncementMySuffix>) => {
+                this.announcement = announcementResponse.body;
+                window.alert('The product was accepted!');
+            });
     }
 
     declineProduct() {
-
+        this.announcementService.decline(this.announcement.id)
+            .subscribe((announcementResponse: HttpResponse<AnnouncementMySuffix>) => {
+                this.announcement = announcementResponse.body;
+                window.alert('The product was declined! We are sorry for inconvenience');
+            });
     }
 }

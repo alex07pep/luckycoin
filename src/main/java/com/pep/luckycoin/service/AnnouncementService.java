@@ -67,6 +67,14 @@ public interface AnnouncementService {
     void returnCreditForAnnouncement(Announcement announcement);
 
     /**
+     * Give the credit for an announcement given as param to owner
+     * Set status to COMPLETED for announcement
+     *
+     * @param announcement to return credit for
+     */
+    void payOwnerForAnnouncement(Announcement announcement);
+
+    /**
      * Set a random winner for announcement given as param
      * Set status to Finished for announcement
      *

@@ -108,6 +108,40 @@ public class AnnouncementResource {
     }
 
     /**
+     * announcementsDecline : Decline the product.
+     *
+     * @return the ResponseEntity with status 200 (OK) and with body the declined announcement,
+     * or with status 400 (Bad Request) if the announcement is not valid,
+     * or with status 500 (Internal Server Error) if the announcement couldn't be declined
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @GetMapping("/announcementsDecline/{id}")
+    @Timed
+    public ResponseEntity<Announcement> declineAnnouncement(@PathVariable Long id) {
+        log.debug("REST request to get Announcement : {}", id);
+        announcementService.returnCreditForAnnouncement(announcementService.findOne(id));
+        Announcement announcement = announcementService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(announcement));
+    }
+
+    /**
+     * announcementsAccept : Accept the product.
+     *
+     * @return the ResponseEntity with status 200 (OK) and with body the accepted announcement,
+     * or with status 400 (Bad Request) if the announcement is not valid,
+     * or with status 500 (Internal Server Error) if the announcement couldn't be accepted
+     * @throws URISyntaxException if the Location URI syntax is incorrect
+     */
+    @GetMapping("/announcementsAccept/{id}")
+    @Timed
+    public ResponseEntity<Announcement> acceptAnnouncement(@PathVariable Long id) {
+        log.debug("REST request to get Announcement : {}", id);
+        announcementService.payOwnerForAnnouncement(announcementService.findOne(id));
+        Announcement announcement = announcementService.findOne(id);
+        return ResponseUtil.wrapOrNotFound(Optional.ofNullable(announcement));
+    }
+
+    /**
      * GET  /announcements : get all the announcements.
      *
      * @param pageable the pagination information

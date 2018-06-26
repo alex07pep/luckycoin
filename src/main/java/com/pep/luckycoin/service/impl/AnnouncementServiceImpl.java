@@ -24,9 +24,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static com.pep.luckycoin.domain.enumeration.Status.CLOSED;
-import static com.pep.luckycoin.domain.enumeration.Status.FINISED;
-import static com.pep.luckycoin.domain.enumeration.Status.OPEN;
+import static com.pep.luckycoin.domain.enumeration.Status.*;
 import static org.elasticsearch.index.query.QueryBuilders.*;
 
 /**
@@ -63,7 +61,9 @@ public class AnnouncementServiceImpl implements AnnouncementService {
     public Announcement save(Announcement announcement) {
         log.debug("Request to save Announcement : {}", announcement);
         Announcement result = announcementRepository.save(announcement);
-        announcementSearchRepository.save(result);
+        if (result.getWinner() == null) {
+            announcementSearchRepository.save(result);
+        }
         return result;
     }
 
@@ -163,6 +163,7 @@ public class AnnouncementServiceImpl implements AnnouncementService {
             }
         }
         announcement.setStatus(CLOSED);
+        save(announcement);
     }
 
     /**
@@ -195,5 +196,31 @@ public class AnnouncementServiceImpl implements AnnouncementService {
         resolveExpiredAnnouncements();
     }
 
-    //TODO from FINISHED to CLOSED before returnCredit() or to COMPLETED and payOwnerForProduct();
+    /**
+     * Give the credit for an announcement given as param to owner
+     * Set status to COMPLETED for announcement
+     *
+     * @param announcement to return credit for
+     */
+    @Override
+    public void payOwnerForAnnouncement(Announcement announcement) {
+        List<Transaction> transactionsTicketsList = transactionService.findByAnnouncement(announcement);
+
+        for(Transaction transactionTicket: transactionsTicketsList) {
+            // if transaction is not processed
+            if(!transactionTicket.isCompleted()) {
+                Credit ownerCreditToPay = creditService.findByUserLogin(announcement.getOwner().getLogin());
+                // pay owner
+                ownerCreditToPay.setCreditValue(ownerCreditToPay.getCreditValue() + announcement.getTicketValue());
+                creditService.save(ownerCreditToPay);
+                //mark transaction as completed
+                transactionTicket.setCompleted(true);
+                transactionService.save(transactionTicket);
+            }
+        }
+        announcement.setStatus(COMPLETED);
+        save(announcement);
+    }
+
+    //TODO returnCreditForAnnouncement() or to COMPLETED and payOwnerForAnnouncement();
 }

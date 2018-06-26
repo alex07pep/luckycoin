@@ -68,7 +68,7 @@ public class TransactionResource {
             throw new BadRequestAlertException("A new transaction cannot already have an ID", ENTITY_NAME, "idexists");
         }
         Credit currentUserCredit = creditService.findByUserLogin(userService.getUserWithAuthorities().get().getLogin());
-        if(currentUserCredit.getCreditValue() >= transaction.getAnnouncement().getTicketValue()) {
+        if(currentUserCredit.getCreditValue() >= transaction.getAnnouncement().getTicketValue() && transaction.getAnnouncement().getTicketsSold() < transaction.getAnnouncement().getTicketsNumber()) {
             transaction.setCompleted(false);
             transaction.setUser(userService.getUserWithAuthorities().get());
             Transaction result = transactionService.save(transaction);
